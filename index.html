@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YakındaUsta — Giresun'un Usta Platformu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --ink:#0A0A0F;
+  --paper:#F8F5EF;
+  --amber:#F5A623;
+  --amber-d:#D4891A;
+  --slate:#16161F;
+  --muted:#6B6878;
+  --border:rgba(10,10,15,.08);
+  --r:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+
+/* CURSOR */
+.cur{width:10px;height:10px;background:var(--amber);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .15s;mix-blend-mode:multiply}
+.cur-r{width:38px;height:38px;border:1.5px solid var(--amber);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;opacity:.45;transition:all .08s linear}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.2rem 5%;display:flex;align-items:center;justify-content:space-between;transition:background .3s,box-shadow .3s}
+nav.scrolled{background:rgba(248,245,239,.93);backdrop-filter:blur(18px);box-shadow:0 1px 0 var(--border)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.35rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.4rem}
+.nav-logo em{color:var(--amber);font-style:normal}
+.nav-pill{display:flex;gap:1.75rem;background:white;border:1px solid var(--border);border-radius:99px;padding:.5rem 1.5rem}
+.nav-pill a{font-size:.87rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-pill a:hover{color:var(--ink)}
+.nav-r{display:flex;align-items:center;gap:.65rem}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.35rem;border-radius:99px;font-size:.87rem;font-weight:600;text-decoration:none;border:none;font-family:inherit;cursor:pointer;transition:transform .15s,background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-ghost{background:transparent;border:1.5px solid var(--border);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-amber{background:var(--amber);color:#fff;box-shadow:0 4px 16px rgba(245,166,35,.3)}
+.btn-amber:hover{background:var(--amber-d);box-shadow:0 6px 24px rgba(245,166,35,.45)}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 5% 4rem;gap:4rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-bg::before{content:'';position:absolute;width:560px;height:560px;background:rgba(245,166,35,.1);border-radius:50%;filter:blur(80px);top:-80px;right:-60px}
+.hero-bg::after{content:'';position:absolute;width:320px;height:320px;background:rgba(245,166,35,.06);border-radius:50%;filter:blur(60px);bottom:60px;left:35%}
+.hero-l{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:white;border:1px solid var(--border);border-radius:99px;padding:.38rem .9rem .38rem .5rem;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:2rem;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.badge-pip{width:20px;height:20px;background:rgba(245,166,35,.15);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.badge-pip::after{content:'';width:7px;height:7px;background:var(--amber);border-radius:50%}
+h1{font-family:'Syne',sans-serif;font-size:clamp(3rem,5.5vw,5.5rem);font-weight:800;line-height:1.0;letter-spacing:-.03em;margin-bottom:1.5rem}
+.h1-hollow{-webkit-text-stroke:2.5px var(--ink);color:transparent}
+.hero-sub{font-size:1.05rem;color:var(--muted);line-height:1.75;max-width:430px;margin-bottom:2.5rem;font-weight:300}
+.hero-acts{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:3rem}
+.hero-trust{display:flex;align-items:center;gap:1rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.t-avs{display:flex}
+.t-av{width:32px;height:32px;border-radius:50%;border:2.5px solid var(--paper);background:var(--slate);color:white;font-size:.62rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:-8px}
+.t-av:first-child{margin-left:0}
+.t-txt{font-size:.82rem;color:var(--muted);line-height:1.4}
+.t-txt strong{color:var(--ink);font-weight:600}
+
+/* HERO RIGHT */
+.hero-r{position:relative;z-index:1;display:flex;flex-direction:column;gap:1rem}
+.hcard{background:white;border:1px solid var(--border);border-radius:18px;padding:1.2rem 1.4rem;box-shadow:0 4px 20px rgba(0,0,0,.05)}
+.hcard.dark{background:var(--ink);border-color:transparent;color:white;transform:scale(1.02)}
+.wrow{display:flex;align-items:center;gap:.8rem}
+.wav{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;flex-shrink:0}
+.wn{font-weight:700;font-size:.92rem;margin-bottom:.12rem}
+.wc{font-size:.76rem;opacity:.5}
+.wrat{margin-left:auto;text-align:right}
+.stars{color:var(--amber);font-size:.82rem}
+.rn{font-size:.75rem;opacity:.5}
+.ctags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.9rem}
+.ctag{font-size:.7rem;font-weight:600;padding:.25rem .62rem;border-radius:5px;background:var(--paper);border:1px solid var(--border);color:var(--muted)}
+.ctag.dark{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.55)}
+.ctag.a{background:rgba(245,166,35,.12);border-color:rgba(245,166,35,.25);color:var(--amber-d)}
+.adot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#22C55E;margin-right:.3rem}
+.mstat-g{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;margin-top:.75rem}
+.mstat{background:rgba(255,255,255,.06);border-radius:10px;padding:.6rem .4rem;text-align:center}
+.msn{font-size:1.05rem;font-weight:800;color:var(--amber)}
+.msl{font-size:.65rem;opacity:.4;margin-top:.12rem}
+
+/* MARQUEE */
+.mq{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--ink);padding:.85rem 0;overflow:hidden}
+.mq-t{display:flex;animation:mq 22s linear infinite;width:max-content}
+.mq-i{padding:0 2.2rem;font-size:.82rem;color:rgba(255,255,255,.4);font-weight:500;white-space:nowrap;display:flex;align-items:center;gap:.55rem}
+.mq-i span{color:var(--amber);font-size:.5rem}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* CATEGORIES */
+.cats{padding:6rem 5%}
+.sec-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem}
+.eyebrow{font-size:.73rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:.55rem}
+h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-.02em}
+.cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem}
+.ctile{background:white;border:1px solid var(--border);border-radius:16px;padding:1.6rem 1.4rem;cursor:pointer;text-decoration:none;color:var(--ink);position:relative;overflow:hidden;display:block;transition:border-color .25s,transform .25s,box-shadow .25s}
+.ctile:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.07);border-color:var(--amber)}
+.ctile:hover .ct-arr{transform:translate(3px,-3px);opacity:1}
+.ctile.blk{grid-column:span 2;background:var(--ink);color:white;min-height:165px;display:flex;flex-direction:column;justify-content:flex-end}
+.ctile.blk:hover{border-color:var(--amber)}
+.ctile.blk .ct-sub{color:rgba(255,255,255,.45)}
+.ct-arr{position:absolute;top:1.1rem;right:1.1rem;opacity:0;font-size:.82rem;color:var(--amber);transition:transform .25s,opacity .25s}
+.ctile.blk .ct-arr{opacity:.4}
+.ctile.blk:hover .ct-arr{opacity:1;transform:translate(3px,-3px)}
+.ct-em{font-size:1.9rem;margin-bottom:.9rem;display:block}
+.ct-n{font-weight:700;font-size:.95rem;margin-bottom:.28rem}
+.ct-sub{font-size:.78rem;color:var(--muted);line-height:1.4}
+
+/* STEPS */
+.steps{padding:6rem 5%;background:var(--ink);color:white;position:relative;overflow:hidden}
+.steps::before{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(245,166,35,.07) 0%,transparent 70%);pointer-events:none}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,.05);border-radius:18px;overflow:hidden;margin-top:3rem;border:1px solid rgba(255,255,255,.05);position:relative;z-index:1}
+.scell{padding:2.25rem 1.75rem;background:var(--ink);transition:background .25s}
+.scell:hover{background:rgba(255,255,255,.03)}
+.snum{font-family:'Syne',sans-serif;font-size:3.2rem;font-weight:800;color:rgba(255,255,255,.05);line-height:1;margin-bottom:1.3rem}
+.sico{font-size:1.8rem;margin-bottom:.85rem;display:block}
+.st{font-weight:700;font-size:.95rem;margin-bottom:.45rem}
+.sd{font-size:.83rem;color:rgba(255,255,255,.38);line-height:1.6}
+
+/* WORKERS */
+.workers{padding:6rem 5%}
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem}
+.wcard{background:white;border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:transform .25s,box-shadow .25s,border-color .25s}
+.wcard:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.08);border-color:rgba(245,166,35,.3)}
+.wctop{padding:1.4rem;display:flex;gap:.9rem;align-items:center;border-bottom:1px solid var(--border)}
+.wcav{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;flex-shrink:0}
+.wcn{font-weight:700;font-size:.92rem}
+.wcs{font-size:.76rem;color:var(--muted);margin-top:.1rem}
+.wcbdg{margin-left:auto;font-size:.68rem;font-weight:700;padding:.28rem .62rem;border-radius:6px;flex-shrink:0}
+.wcbody{padding:1.2rem 1.4rem}
+.wcst{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-bottom:1.1rem}
+.wcsn{font-weight:800;font-size:.92rem;color:var(--ink);text-align:center}
+.wcsl{font-size:.67rem;color:var(--muted);text-align:center;margin-top:.1rem}
+.wctags{display:flex;flex-wrap:wrap;gap:.32rem;margin-bottom:1.1rem}
+.wctag{font-size:.69rem;font-weight:600;padding:.22rem .55rem;border-radius:5px;background:var(--paper);color:var(--muted);border:1px solid var(--border)}
+.wcacts{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.wcbtn{padding:.62rem;border-radius:9px;font-size:.8rem;font-weight:600;text-align:center;border:none;cursor:pointer;font-family:inherit;transition:background .2s,transform .15s}
+.wcbtn:hover{transform:translateY(-1px)}
+.wcbtn.p{background:var(--ink);color:white}
+.wcbtn.p:hover{background:var(--slate)}
+.wcbtn.o{background:transparent;border:1.5px solid var(--border);color:var(--ink)}
+.wcbtn.o:hover{border-color:var(--ink)}
+
+/* PRICING */
+.pricing{padding:6rem 5%;background:#EEEBE4}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem}
+.pcard{background:white;border:1px solid var(--border);border-radius:18px;padding:2.1rem 1.85rem;position:relative;transition:transform .25s,box-shadow .25s}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.07)}
+.pcard.feat{background:var(--ink);color:white;border-color:transparent;transform:scale(1.03);box-shadow:0 20px 50px rgba(10,10,15,.22)}
+.pcard.feat:hover{transform:scale(1.03) translateY(-4px)}
+.p-pop{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--amber);color:white;font-size:.7rem;font-weight:800;padding:.28rem .85rem;border-radius:99px;white-space:nowrap;letter-spacing:.04em}
+.p-plan{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:.55rem}
+.p-amt{font-family:'Syne',sans-serif;font-size:2.9rem;font-weight:800;letter-spacing:-.02em;line-height:1;margin-bottom:.28rem}
+.p-per{font-size:.8rem;color:var(--muted);margin-bottom:1.6rem}
+.pcard.feat .p-per{color:rgba(255,255,255,.38)}
+.p-div{height:1px;background:var(--border);margin-bottom:1.6rem}
+.pcard.feat .p-div{background:rgba(255,255,255,.1)}
+.p-feats{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.85rem}
+.p-feats li{display:flex;gap:.55rem;align-items:flex-start;font-size:.85rem;color:var(--muted)}
+.pcard.feat .p-feats li{color:rgba(255,255,255,.5)}
+.p-feats li::before{content:'✓';color:var(--amber);font-weight:800;flex-shrink:0;margin-top:.04rem}
+.pbtn{display:block;width:100%;padding:.85rem;border-radius:10px;text-align:center;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;border:none;transition:background .2s,transform .15s}
+.pbtn:hover{transform:translateY(-1px)}
+.pbtn.ghost{background:transparent;border:1.5px solid var(--border);color:var(--ink)}
+.pbtn.ghost:hover{border-color:var(--ink)}
+.pbtn.am{background:var(--amber);color:white;box-shadow:0 4px 16px rgba(245,166,35,.28)}
+.pbtn.am:hover{background:var(--amber-d)}
+.pbtn.wh{background:white;color:var(--ink)}
+.pbtn.wh:hover{background:var(--paper)}
+
+/* CTA */
+.cta{padding:6rem 5%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.cta-big{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,4vw,4rem);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+.cta-note{font-size:.83rem;color:var(--muted);margin-top:.85rem}
+.cta-r{background:var(--ink);border-radius:22px;padding:2.25rem;color:white}
+.cf-lbl{font-size:.73rem;font-weight:700;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.38rem}
+.cf-inp{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:.8rem .9rem;color:white;font-size:.88rem;font-family:inherit;margin-bottom:.9rem;outline:none;transition:border-color .2s}
+.cf-inp:focus{border-color:var(--amber)}
+.cf-inp::placeholder{color:rgba(255,255,255,.22)}
+.cf-sel{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:9px;padding:.8rem .9rem;color:white;font-size:.88rem;font-family:inherit;margin-bottom:1.35rem;outline:none;cursor:pointer;-webkit-appearance:none;transition:border-color .2s}
+.cf-sel:focus{border-color:var(--amber)}
+.cf-sel option{background:var(--slate);color:white}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+
+/* FOOTER */
+footer{background:var(--ink);color:white;padding:3.5rem 5% 2rem}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.flogo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem;color:white;text-decoration:none;display:block;margin-bottom:.85rem}
+.flogo em{color:var(--amber);font-style:normal}
+.ftag{font-size:.85rem;color:rgba(255,255,255,.32);line-height:1.6;max-width:240px}
+.fph{display:inline-flex;align-items:center;gap:.45rem;margin-top:1.1rem;font-size:.86rem;color:var(--amber);font-weight:600;text-decoration:none}
+.fct{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.28);margin-bottom:.9rem}
+.flinks{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.flinks a{font-size:.86rem;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.flinks a:hover{color:white}
+.fb{padding-top:1.75rem;display:flex;justify-content:space-between;align-items:center;font-size:.77rem;color:rgba(255,255,255,.22);flex-wrap:wrap;gap:.75rem}
+
+/* ACIL */
+.acil{position:fixed;bottom:1.5rem;right:1.5rem;z-index:400;background:var(--amber);color:white;border:none;cursor:pointer;font-family:inherit;padding:.8rem 1.4rem;border-radius:99px;font-size:.86rem;font-weight:700;display:flex;align-items:center;gap:.45rem;box-shadow:0 6px 22px rgba(245,166,35,.4);animation:ap 2s infinite}
+@keyframes ap{0%,100%{box-shadow:0 6px 22px rgba(245,166,35,.4)}50%{box-shadow:0 6px 32px rgba(245,166,35,.65)}}
+.acil:hover{transform:translateY(-2px)}
+
+/* TOAST */
+.toast{position:fixed;bottom:5.2rem;right:1.5rem;z-index:600;background:var(--ink);color:white;padding:.8rem 1.15rem;border-radius:11px;font-size:.85rem;max-width:280px;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;pointer-events:none;border-left:3px solid var(--amber)}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* MOBILE */
+@media(max-width:1024px){.cgrid{grid-template-columns:repeat(3,1fr)}.ctile.blk{grid-column:span 1;min-height:auto}.sgrid{grid-template-columns:repeat(2,1fr)}.wgrid{grid-template-columns:repeat(2,1fr)}.ft{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.hero{grid-template-columns:1fr;padding-top:6rem}.hero-r{display:none}.nav-pill{display:none}.cgrid{grid-template-columns:repeat(2,1fr)}.wgrid{grid-template-columns:1fr}.pgrid{grid-template-columns:1fr}.pcard.feat{transform:none}.cta{grid-template-columns:1fr}.ft{grid-template-columns:1fr 1fr;gap:1.75rem}.cur,.cur-r{display:none}}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Yakında<em>Usta</em></a>
+  <div class="nav-pill">
+    <a href="hizmetler.html">Hizmetler</a>
+    <a href="ustalar.html">Ustalar</a>
+    <a href="#nasil">Nasıl Çalışır</a>
+    <a href="#fiyatlar">Fiyatlar</a>
+  </div>
+  <div class="nav-r">
+    <a href="iletisim.html" class="btn btn-ghost">Giriş</a>
+    <a href="iletisim.html" class="btn btn-amber">Usta Ol <i class="fas fa-arrow-right" style="font-size:.72rem"></i></a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-l" data-rv>
+    <div class="hero-badge"><div class="badge-pip"></div>Giresun'un ilk usta platformu — Beta</div>
+    <h1>İşini bilen<br><span class="h1-hollow">ustayı</span><br>bul.</h1>
+    <p class="hero-sub">Temizlik, elektrik, nakliye, tadilat ve daha fazlası. Onaylı, puanlı ustalar. Anlık rezervasyon, güvenceli ödeme.</p>
+    <div class="hero-acts">
+      <a href="ustalar.html" class="btn btn-amber" style="padding:.78rem 1.7rem;font-size:.95rem">Usta Bul <i class="fas fa-arrow-right"></i></a>
+      <a href="#nasil" class="btn btn-ghost" style="padding:.78rem 1.4rem;font-size:.95rem">Nasıl Çalışır</a>
+    </div>
+    <div class="hero-trust">
+      <div class="t-avs"><span class="t-av">AY</span><span class="t-av">MK</span><span class="t-av">FK</span><span class="t-av">SA</span><span class="t-av">+</span></div>
+      <div class="t-txt"><strong>50+ onaylı usta</strong> aktif olarak çalışıyor<br>Ortalama puan <strong>4.8 ★</strong></div>
+    </div>
+  </div>
+  <div class="hero-r" data-rv data-d="200">
+    <div class="hcard">
+      <div class="wrow">
+        <div class="wav" style="background:#FEF3C7;color:#D97706">MA</div>
+        <div><div class="wn">Mehmet Usta</div><div class="wc">Elektrik & Tesisat</div></div>
+        <div class="wrat"><div class="stars">★★★★★</div><div class="rn">4.9 · 84 iş</div></div>
+      </div>
+      <div class="ctags"><span class="ctag">Arıza</span><span class="ctag">Montaj</span><span class="ctag">Klima</span><span class="ctag a"><span class="adot"></span>Müsait</span></div>
+    </div>
+    <div class="hcard dark">
+      <div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--amber);margin-bottom:.85rem">Platform İstatistikleri</div>
+      <div class="mstat-g">
+        <div class="mstat"><div class="msn">50+</div><div class="msl">Onaylı Usta</div></div>
+        <div class="mstat"><div class="msn">12</div><div class="msl">Kategori</div></div>
+        <div class="mstat"><div class="msn">4.8★</div><div class="msl">Ort. Puan</div></div>
+      </div>
+    </div>
+    <div class="hcard">
+      <div class="wrow">
+        <div class="wav" style="background:#FCE7F3;color:#BE185D">AY</div>
+        <div><div class="wn">Ayşe Yılmaz</div><div class="wc">Ev & Ofis Temizliği</div></div>
+        <div class="wrat"><div class="stars">★★★★★</div><div class="rn">4.8 · 127 iş</div></div>
+      </div>
+      <div class="ctags"><span class="ctag">Ev</span><span class="ctag">Ofis</span><span class="ctag">Merdiven</span><span class="ctag a"><span class="adot"></span>Müsait</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="mq">
+  <div class="mq-t" id="mqt">
+    <div class="mq-i">Temizlik <span>◆</span></div><div class="mq-i">Elektrik <span>◆</span></div><div class="mq-i">Tesisat <span>◆</span></div><div class="mq-i">Nakliye <span>◆</span></div><div class="mq-i">Boya & Badana <span>◆</span></div><div class="mq-i">Marangoz <span>◆</span></div><div class="mq-i">Camcı <span>◆</span></div><div class="mq-i">Halı Yıkama <span>◆</span></div><div class="mq-i">Kilitçi <span>◆</span></div><div class="mq-i">Avize Montaj <span>◆</span></div><div class="mq-i">Tadilat <span>◆</span></div><div class="mq-i">Giresun'un Ustası <span>◆</span></div>
+    <div class="mq-i">Temizlik <span>◆</span></div><div class="mq-i">Elektrik <span>◆</span></div><div class="mq-i">Tesisat <span>◆</span></div><div class="mq-i">Nakliye <span>◆</span></div><div class="mq-i">Boya & Badana <span>◆</span></div><div class="mq-i">Marangoz <span>◆</span></div><div class="mq-i">Camcı <span>◆</span></div><div class="mq-i">Halı Yıkama <span>◆</span></div><div class="mq-i">Kilitçi <span>◆</span></div><div class="mq-i">Avize Montaj <span>◆</span></div><div class="mq-i">Tadilat <span>◆</span></div><div class="mq-i">Giresun'un Ustası <span>◆</span></div>
+  </div>
+</div>
+
+<section class="cats" id="kategoriler">
+  <div class="sec-hdr">
+    <div><div class="eyebrow">Hizmetler</div><h2>Her işte doğru usta</h2></div>
+    <a href="hizmetler.html" class="btn btn-ghost">Tümü <i class="fas fa-arrow-right" style="font-size:.75rem"></i></a>
+  </div>
+  <div class="cgrid">
+    <a href="ustalar.html?kategori=temizlik" class="ctile blk" data-rv><span class="ct-arr"><i class="fas fa-arrow-up-right"></i></span><span class="ct-em">🧹</span><div class="ct-n">Temizlik</div><div class="ct-sub">Ev, ofis, apartman, inşaat sonrası</div></a>
+    <a href="ustalar.html?kategori=elektrik" class="ctile" data-rv data-d="60"><span class="ct-arr"><i class="fas fa-arrow-up-right"></i></span><span class="ct-em">⚡</span><div class="ct-n">Elektrik</div><div class="ct-sub">Arıza, tesisat, montaj</div></a>
+    <a href="ustalar.html?kategori=nakliye" class="ctile" data-rv data-d="120"><span class="ct-arr"><i class="fas fa-arrow-up-right"></i></span><span class="ct-em">🚛</span><div class="ct-n">Nakliye</div><div class="ct-sub">Ev & ofis taşıma</div></a>
+    <a href="ustalar.html?kategori=boya" class="ctile" data-rv data-d="60"><span class="ct-arr"><i class="fas fa-arrow-up-right"></i></span><span class="ct-em">🎨</span><div class="ct-n">Boya & Badana</div><div class="ct-sub">İç, dış cephe, dekoratif</div></a>
+    <a href="ustalar.html?kategori=tesisat" class="ctile" data-rv data-d="120"><span class="ct-arr"><i class="fas fa-arrow-up-right"></i></span><span class="ct-em">🔧</span><div class="ct-n">Tesisat</div><div class="ct-sub">Su, kanalizasyon</div></a>
+    <a href="ustalar.html?kategori=marangoz" class="ctile" data-rv data-d="180"><span class="ct-arr"><i class="fas fa-arrow-up-right"></i></span><span class="ct-em">🔨</span><div class="ct-n">Marangoz</div><div class="ct-sub">Mobilya, kapı, dolap</div></a>
+    <a href="ustalar.html?kategori=tadilat" class="ctile blk" data-rv data-d="120"><span class="ct-arr"><i class="fas fa-arrow-up-right"></i></span><span class="ct-em">🏠</span><div class="ct-n">Genel Tadilat</div><div class="ct-sub">Tamirat, yenileme, seramik</div></a>
+    <a href="ustalar.html?kategori=camci" class="ctile" data-rv data-d="180"><span class="ct-arr"><i class="fas fa-arrow-up-right"></i></span><span class="ct-em">🪟</span><div class="ct-n">Camcı</div><div class="ct-sub">Pencere, PVC</div></a>
+    <a href="ustalar.html?kategori=hali" class="ctile" data-rv data-d="240"><span class="ct-arr"><i class="fas fa-arrow-up-right"></i></span><span class="ct-em">🧼</span><div class="ct-n">Halı Yıkama</div><div class="ct-sub">Koltuk, halı, perde</div></a>
+    <a href="ustalar.html?kategori=kilitci" class="ctile" data-rv data-d="240"><span class="ct-arr"><i class="fas fa-arrow-up-right"></i></span><span class="ct-em">🔑</span><div class="ct-n">Kilitçi</div><div class="ct-sub">Kilit, çilingir</div></a>
+  </div>
+</section>
+
+<section class="steps" id="nasil">
+  <div style="position:relative;z-index:1"><div class="eyebrow">Nasıl Çalışır</div><h2 style="color:white">4 adımda işin bitti</h2></div>
+  <div class="sgrid">
+    <div class="scell" data-rv><div class="snum">01</div><span class="sico">🔍</span><div class="st">Hizmet seç</div><div class="sd">12 farklı kategoride ihtiyacın olan hizmeti seç.</div></div>
+    <div class="scell" data-rv data-d="100"><div class="snum">02</div><span class="sico">👤</span><div class="st">Usta bul</div><div class="sd">Profil, puan ve yorumları incele, en iyisini seç.</div></div>
+    <div class="scell" data-rv data-d="200"><div class="snum">03</div><span class="sico">📅</span><div class="st">Rezervasyon yap</div><div class="sd">Tarih, saat, adres. Usta saniyeler içinde onaylar.</div></div>
+    <div class="scell" data-rv data-d="300"><div class="snum">04</div><span class="sico">✅</span><div class="st">İş bitti, öde</div><div class="sd">İş tamamlandıktan sonra güvenceli ödeme, yorum.</div></div>
+  </div>
+</section>
+
+<section class="workers" id="ustalar">
+  <div class="sec-hdr"><div><div class="eyebrow">Onaylı Ustalar</div><h2>Giresun'un en iyileri</h2></div><a href="ustalar.html" class="btn btn-ghost">Tümü <i class="fas fa-arrow-right"></i></a></div>
+  <div class="wgrid">
+    <div class="wcard" data-rv>
+      <div class="wctop"><div class="wcav" style="background:#FEF3C7;color:#D97706">MA</div><div><div class="wcn">Mehmet Usta</div><div class="wcs">Elektrik & Tesisat</div></div><span class="wcbdg" style="background:rgba(34,197,94,.1);color:#16A34A">Müsait</span></div>
+      <div class="wcbody"><div class="wcst"><div><div class="wcsn">★4.9</div><div class="wcsl">Puan</div></div><div><div class="wcsn">84</div><div class="wcsl">İş</div></div><div><div class="wcsn">20yıl</div><div class="wcsl">Deneyim</div></div></div><div class="wctags"><span class="wctag">Arıza</span><span class="wctag">Montaj</span><span class="wctag">Klima</span><span class="wctag">Pano</span></div><div class="wcacts"><button class="wcbtn p" onclick="showToast('📞 Mehmet Usta aranıyor... 0506 027 05 51')">Ara</button><button class="wcbtn o" onclick="showToast('✅ Randevu talebi gönderildi')">Randevu</button></div></div>
+    </div>
+    <div class="wcard" data-rv data-d="100">
+      <div class="wctop"><div class="wcav" style="background:#FCE7F3;color:#BE185D">AY</div><div><div class="wcn">Ayşe Yılmaz</div><div class="wcs">Ev & Ofis Temizliği</div></div><span class="wcbdg" style="background:rgba(34,197,94,.1);color:#16A34A">Müsait</span></div>
+      <div class="wcbody"><div class="wcst"><div><div class="wcsn">★4.8</div><div class="wcsl">Puan</div></div><div><div class="wcsn">127</div><div class="wcsl">İş</div></div><div><div class="wcsn">8yıl</div><div class="wcsl">Deneyim</div></div></div><div class="wctags"><span class="wctag">Ev</span><span class="wctag">Ofis</span><span class="wctag">Merdiven</span><span class="wctag">Cam</span></div><div class="wcacts"><button class="wcbtn p" onclick="showToast('📞 Ayşe Yılmaz aranıyor... 0506 027 05 51')">Ara</button><button class="wcbtn o" onclick="showToast('✅ Randevu talebi gönderildi')">Randevu</button></div></div>
+    </div>
+    <div class="wcard" data-rv data-d="200">
+      <div class="wctop"><div class="wcav" style="background:#EDE9FE;color:#7C3AED">DU</div><div><div class="wcn">Derya Usta</div><div class="wcs">Boya & Badana</div></div><span class="wcbdg" style="background:rgba(34,197,94,.1);color:#16A34A">Müsait</span></div>
+      <div class="wcbody"><div class="wcst"><div><div class="wcsn">★4.9</div><div class="wcsl">Puan</div></div><div><div class="wcsn">112</div><div class="wcsl">İş</div></div><div><div class="wcsn">15yıl</div><div class="wcsl">Deneyim</div></div></div><div class="wctags"><span class="wctag">İç Cephe</span><span class="wctag">Dış Cephe</span><span class="wctag">Dekoratif</span></div><div class="wcacts"><button class="wcbtn p" onclick="showToast('📞 Derya Usta aranıyor... 0506 027 05 51')">Ara</button><button class="wcbtn o" onclick="showToast('✅ Randevu talebi gönderildi')">Randevu</button></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="fiyatlar">
+  <div style="text-align:center"><div class="eyebrow" style="text-align:center">Ustalar İçin</div><h2 style="text-align:center">Şeffaf fiyat, net kazanç</h2><p style="font-size:.92rem;color:var(--muted);margin-top:.65rem">Komisyon sadece iş gerçekleşince alınır.</p></div>
+  <div class="pgrid">
+    <div class="pcard" data-rv><div class="p-plan">Temel</div><div class="p-amt">₺299</div><div class="p-per">/ ay + %12 komisyon</div><div class="p-div"></div><ul class="p-feats"><li>Aylık 10 iş kotası</li><li>Profil sayfası</li><li>Mesajlaşma</li><li>Temel istatistikler</li></ul><a href="iletisim.html" class="pbtn ghost">Başla</a></div>
+    <div class="pcard feat" data-rv data-d="100"><div class="p-pop">En Popüler</div><div class="p-plan">Pro</div><div class="p-amt">₺599</div><div class="p-per">/ ay + %10 komisyon</div><div class="p-div"></div><ul class="p-feats"><li>Sınırsız iş</li><li>Öne çıkan profil</li><li>Arama üstü görünüm</li><li>Detaylı analitik</li><li>Öncelikli destek</li></ul><a href="iletisim.html" class="pbtn am">Pro'ya Geç</a></div>
+    <div class="pcard" data-rv data-d="200"><div class="p-plan">Kurumsal</div><div class="p-amt">₺999</div><div class="p-per">/ ay + %8 komisyon</div><div class="p-div"></div><ul class="p-feats"><li>Birden fazla çalışan</li><li>Şirket profili</li><li>B2B sözleşme desteği</li><li>Özel müşteri yöneticisi</li></ul><a href="iletisim.html" class="pbtn ghost">İletişime Geç</a></div>
+  </div>
+</section>
+
+<section class="cta" id="iletisim">
+  <div data-rv>
+    <div class="eyebrow">Hemen Başla</div>
+    <div class="cta-big">Giresun'un<br>ustası ol.</div>
+    <p class="cta-note">İlk 50 usta arasına katıl — 3 ay ücretsiz Pro plan.</p>
+    <div style="margin-top:1.75rem;display:flex;gap:.65rem;flex-wrap:wrap">
+      <a href="tel:05060270551" class="btn btn-amber" style="padding:.78rem 1.4rem"><i class="fas fa-phone"></i>&nbsp; 0506 027 05 51</a>
+      <a href="https://wa.me/905060270551" target="_blank" class="btn btn-ghost" style="padding:.78rem 1.4rem"><i class="fab fa-whatsapp"></i>&nbsp; WhatsApp</a>
+    </div>
+  </div>
+  <div class="cta-r" data-rv data-d="150">
+    <div style="font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:1.35rem">Kayıt Formu</div>
+    <div class="frow">
+      <div><div class="cf-lbl">Ad Soyad</div><input type="text" class="cf-inp" id="kayitAd" placeholder="Mehmet Usta"></div>
+      <div><div class="cf-lbl">Telefon</div><input type="tel" class="cf-inp" id="kayitTel" placeholder="0506 000 00 00"></div>
+    </div>
+    <div class="cf-lbl">Kategori</div>
+    <select class="cf-sel" id="kayitKategori"><option value="">Hizmet kategorini seç</option><option>Temizlik</option><option>Elektrik</option><option>Tesisat</option><option>Nakliye</option><option>Boya & Badana</option><option>Marangoz</option><option>Diğer</option></select>
+    <button class="pbtn am" onclick="kayitOl()">Başvur &nbsp;<i class="fas fa-arrow-right"></i></button>
+  </div>
+</section>
+
+<footer>
+  <div class="ft">
+    <div><a href="index.html" class="flogo">Yakında<em>Usta</em></a><div class="ftag">Giresun'un güvenilir usta platformu. Onaylı, puanlı, sigortalı ustalar.</div><a href="tel:05060270551" class="fph"><i class="fas fa-phone"></i> 0506 027 05 51</a></div>
+    <div><div class="fct">Hizmetler</div><ul class="flinks"><li><a href="hizmetler.html">Temizlik</a></li><li><a href="hizmetler.html">Elektrik</a></li><li><a href="hizmetler.html">Nakliye</a></li><li><a href="hizmetler.html">Boya & Badana</a></li><li><a href="hizmetler.html">Tadilat</a></li></ul></div>
+    <div><div class="fct">Platform</div><ul class="flinks"><li><a href="#nasil">Nasıl Çalışır</a></li><li><a href="#fiyatlar">Fiyatlar</a></li><li><a href="ustalar.html">Ustalar</a></li><li><a href="iletisim.html">Usta Ol</a></li></ul></div>
+    <div><div class="fct">Yasal</div><ul class="flinks"><li><a href="kvkk.html">KVKK</a></li><li><a href="gizlilik.html">Gizlilik</a></li><li><a href="kullanim.html">Kullanım Koşulları</a></li><li><a href="mailto:info@yakindausta.com.tr">E-posta</a></li></ul></div>
+  </div>
+  <div class="fb"><span>© 2025 YakındaUsta · yakindausta.com.tr</span><span>Giresun'un ilk usta platformu</span></div>
+</footer>
+
+<button class="acil" onclick="showToast('🚨 Acil talebiniz alındı! En yakın usta 5 dk içinde arar. 0506 027 05 51')"><i class="fas fa-bolt"></i> Acil Usta</button>
+<div class="toast" id="toast"></div>
+
+<script>
+// Cursor
+const c=document.getElementById('cur'),r=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx-5+'px';c.style.top=my-5+'px'});
+(function anim(){rx+=(mx-rx-19)*.12;ry+=(my-ry-19)*.12;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(anim)})();
+document.querySelectorAll('a,button,.ctile,.wcard').forEach(el=>{el.addEventListener('mouseenter',()=>{c.style.transform='scale(2.8)';r.style.transform='scale(1.6)'});el.addEventListener('mouseleave',()=>{c.style.transform='scale(1)';r.style.transform='scale(1)'})});
+
+// Nav
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40));
+
+// Toast
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200)}
+
+// Kayıt Formu
+function kayitOl(){
+  const ad=document.getElementById('kayitAd')?.value;
+  const tel=document.getElementById('kayitTel')?.value;
+  const kategori=document.getElementById('kayitKategori')?.value;
+  if(!ad||!tel||!kategori){showToast('❌ Lütfen tüm alanları doldurun');return;}
+  showToast(`✅ Başvurun alındı ${ad}! 24 saat içinde arayacağız.`);
+  document.getElementById('kayitAd').value='';
+  document.getElementById('kayitTel').value='';
+  document.getElementById('kayitKategori').value='';
+}
+
+// Reveal
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){setTimeout(()=>{e.target.style.opacity='1';e.target.style.transform='translateY(0)'},e.target.dataset.d||0);obs.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('[data-rv]').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(26px)';el.style.transition='opacity .6s ease,transform .6s ease';obs.observe(el)});
+</script>
+</body>
+</html>
