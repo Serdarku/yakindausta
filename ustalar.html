@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Ustalar | YakındaUsta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2E7D32',
+                        primaryLight: '#4CAF50',
+                        primaryDark: '#1B5E20',
+                        secondary: '#FF8F00',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0A2E0A 0%, #051505 100%);
+            color: #F5F5DC;
+        }
+        
+        .glass {
+            background: rgba(30, 50, 25, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            border-color: #4CAF50 !important;
+            box-shadow: 0 10px 30px rgba(46,125,50,0.2);
+        }
+        
+        .filter-active {
+            background: #2E7D32 !important;
+            border-color: #4CAF50 !important;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #051505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2E7D32;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-primaryLight/30 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-2xl font-bold">
+                <span class="text-3xl">🛠️🌿</span>
+                <span class="text-white">Yakında<span class="text-primaryLight">Usta</span></span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-white/70 hover:text-primaryLight transition">Ana Sayfa</a>
+                <a href="hizmetler.html" class="text-white/70 hover:text-primaryLight transition">Hizmetler</a>
+                <a href="ustalar.html" class="text-primaryLight font-semibold border-b-2 border-primaryLight pb-1">Ustalar</a>
+                <a href="iletisim.html" class="text-white/70 hover:text-primaryLight transition">İletişim</a>
+            </div>
+            
+            <button class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden mt-4 pt-4 border-t border-primaryLight/30">
+            <div class="flex flex-col gap-4">
+                <a href="index.html" class="text-white/70 hover:text-primaryLight py-2">Ana Sayfa</a>
+                <a href="hizmetler.html" class="text-white/70 hover:text-primaryLight py-2">Hizmetler</a>
+                <a href="ustalar.html" class="text-primaryLight py-2">Ustalar</a>
+                <a href="iletisim.html" class="text-white/70 hover:text-primaryLight py-2">İletişim</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">Usta <span class="text-primaryLight">Ara</span></h1>
+                <p class="text-green-200/60">Giresun'un en iyi ustalarını keşfedin, hemen rezervasyon yapın</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-6">
+                
+                <!-- Filters Sidebar -->
+                <aside class="lg:w-64 flex-shrink-0">
+                    <div class="glass rounded-2xl p-6 sticky top-24">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-lg">Filtreler</h3>
+                            <button onclick="resetFilters()" class="text-xs text-primaryLight hover:text-white transition">Temizle</button>
+                        </div>
+
+                        <!-- Kategori -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3 text-sm text-green-200/80">Kategori</h4>
+                            <div class="space-y-2" id="categoryFilters">
+                                <label class="flex items-center gap-2 cursor-pointer hover:text-primaryLight transition">
+                                    <input type="checkbox" value="temizlik" class="filter-category rounded border-primaryLight/50 bg-transparent text-primaryLight focus:ring-primaryLight">
+                                    <span class="text-sm">Temizlik</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer hover:text-primaryLight transition">
+                                    <input type="checkbox" value="elektrik" class="filter-category rounded border-primaryLight/50 bg-transparent text-primaryLight focus:ring-primaryLight">
+                                    <span class="text-sm">Elektrik</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer hover:text-primaryLight transition">
+                                    <input type="checkbox" value="nakliye" class="filter-category rounded border-primaryLight/50 bg-transparent text-primaryLight focus:ring-primaryLight">
+                                    <span class="text-sm">Nakliye</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer hover:text-primaryLight transition">
+                                    <input type="checkbox" value="boya" class="filter-category rounded border-primaryLight/50 bg-transparent text-primaryLight focus:ring-primaryLight">
+                                    <span class="text-sm">Boya</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer hover:text-primaryLight transition">
+                                    <input type="checkbox" value="marangoz" class="filter-category rounded border-primaryLight/50 bg-transparent text-primaryLight focus:ring-primaryLight">
+                                    <span class="text-sm">Marangoz</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer hover:text-primaryLight transition">
+                                    <input type="checkbox" value="tesisat" class="filter-category rounded border-primaryLight/50 bg-transparent text-primaryLight focus:ring-primaryLight">
+                                    <span class="text-sm">Tesisat</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Konum -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3 text-sm text-green-200/80">Konum</h4>
+                            <select id="locationFilter" class="w-full bg-white/10 border border-primaryLight/30 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primaryLight">
+                                <option value="">Tüm Giresun</option>
+                                <option value="Giresun Merkez">Giresun Merkez</option>
+                                <option value="Bulancak">Bulancak</option>
+                                <option value="Espiye">Espiye</option>
+                                <option value="Tirebolu">Tirebolu</option>
+                                <option value="Görele">Görele</option>
+                                <option value="Keşap">Keşap</option>
+                                <option value="Yağlıdere">Yağlıdere</option>
+                            </select>
+                        </div>
+
+                        <!-- Puan -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3 text-sm text-green-200/80">Minimum Puan</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="rating" value="4.5" class="filter-rating text-primaryLight focus:ring-primaryLight">
+                                    <span class="text-sm">4.5+ ⭐</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="rating" value="4.0" class="filter-rating text-primaryLight focus:ring-primaryLight">
+                                    <span class="text-sm">4.0+ ⭐</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="rating" value="0" checked class="filter-rating text-primaryLight focus:ring-primaryLight">
+                                    <span class="text-sm">Tümü</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Müsaitlik -->
+                        <div>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="availableOnly" class="rounded border-primaryLight/50 bg-transparent text-primaryLight focus:ring-primaryLight">
+                                <span class="text-sm">Sadece müsait olanlar</span>
+                            </label>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Results -->
+                <div class="flex-1">
+                    <!-- Search & Sort Bar -->
+                    <div class="glass rounded-xl p-4 mb-6 flex flex-col sm:flex-row gap-4 justify-between items-center">
+                        <div class="relative flex-1 w-full">
+                            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" id="searchInput" placeholder="Usta veya hizmet ara..." 
+                                   class="w-full pl-10 pr-4 py-2 rounded-lg bg-white/10 border border-primaryLight/30 focus:outline-none focus:border-primaryLight text-white placeholder-green-200/50">
+                        </div>
+                        
+                        <div class="flex items-center gap-3 w-full sm:w-auto">
+                            <span class="text-sm text-green-200/60 whitespace-nowrap">Sırala:</span>
+                            <select id="sortSelect" class="bg-white/10 border border-primaryLight/30 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primaryLight flex-1 sm:flex-none">
+                                <option value="puan">En Yüksek Puan</option>
+                                <option value="yakınlık">En Yakın</option>
+                                <option value="deneyim">En Deneyimli</option>
+                                <option value="yorum">En Çok Yorum</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Results Count -->
+                    <div class="mb-4 text-sm text-green-200/60">
+                        <span id="resultCount">0</span> usta bulundu
+                    </div>
+
+                    <!-- Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="ustaGrid">
+                        <!-- JS ile doldurulacak -->
+                        <div class="glass rounded-2xl p-6 text-center col-span-full">
+                            <div class="animate-pulse">Yükleniyor...</div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="mt-8 flex justify-center gap-2" id="pagination"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-primaryLight/20 py-8 px-4 mt-8">
+        <div class="max-w-7xl mx-auto text-center text-sm text-green-200/40">
+            <p>© 2024 YakındaUsta - Giresun'un güvenilir usta platformu</p>
+        </div>
+    </footer>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-primary text-white px-6 py-3 rounded-full shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        Bildirim mesajı
+    </div>
+
+    <script src="js/data.js"></script>
+    <script>
+        let filteredData = [];
+        let currentPage = 1;
+        const itemsPerPage = 12;
+        
+        // URL Parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlCategory = urlParams.get('kategori');
+        const urlSearch = urlParams.get('search');
+        const urlLocation = urlParams.get('location');
+        
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        
+        function applyFilters() {
+            if (typeof ustalarDB === 'undefined') return;
+            
+            // Kategori filtresi
+            const selectedCategories = Array.from(document.querySelectorAll('.filter-category:checked')).map(cb => cb.value);
+            
+            // Konum filtresi
+            const selectedLocation = document.getElementById('locationFilter').value;
+            
+            // Puan filtresi
+            const minRating = document.querySelector('.filter-rating:checked')?.value || 0;
+            
+            // Müsaitlik
+            const onlyAvailable = document.getElementById('availableOnly').checked;
+            
+            // Arama
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            // Filtrele
+            filteredData = ustalarDB.filter(usta => {
+                if (selectedCategories.length > 0 && !selectedCategories.includes(usta.kategori)) return false;
+                if (selectedLocation && usta.konum !== selectedLocation) return false;
+                if (parseFloat(usta.puan) < parseFloat(minRating)) return false;
+                if (onlyAvailable && !usta.musait) return false;
+                if (searchTerm && !usta.adSoyad.toLowerCase().includes(searchTerm) && 
+                    !usta.altKategori.toLowerCase().includes(searchTerm)) return false;
+                return true;
+            });
+            
+            // Sırala
+            const sortType = document.getElementById('sortSelect').value;
+            switch(sortType) {
+                case 'puan':
+                    filteredData.sort((a, b) => b.puan - a.puan);
+                    break;
+                case 'yakınlık':
+                    filteredData.sort((a, b) => a.uzaklik - b.uzaklik);
+                    break;
+                case 'deneyim':
+                    filteredData.sort((a, b) => b.deneyim - a.deneyim);
+                    break;
+                case 'yorum':
+                    filteredData.sort((a, b) => b.degerlendirmeSayisi - a.degerlendirmeSayisi);
+                    break;
+            }
+            
+            currentPage = 1;
+            renderResults();
+        }
+        
+        function renderResults() {
+            const grid = document.getElementById('ustaGrid');
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageData = filteredData.slice(start, end);
+            
+            document.getElementById('resultCount').textContent = filteredData.length;
+            
+            if (pageData.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <div class="text-6xl mb-4">🔍</div>
+                        <h3 class="text-xl font-semibold mb-2">Sonuç bulunamadı</h3>
+                        <p class="text-green-200/60">Farklı filtreler deneyin veya aramanızı genişletin</p>
+                    </div>
+                `;
+            } else {
+                grid.innerHTML = pageData.map(usta => `
+                    <div class="glass rounded-2xl p-5 card-hover transition flex flex-col">
+                        <div class="flex gap-4 mb-4">
+                            <img src="${usta.foto}" alt="${usta.adSoyad}" class="w-20 h-20 rounded-xl object-cover border-2 border-primaryLight/30">
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-bold text-lg">${usta.adSoyad}</h3>
+                                    ${usta.acil ? '<span class="bg-orange-500 text-xs px-2 py-1 rounded-full font-bold animate-pulse">ACİL</span>' : ''}
+                                </div>
+                                <p class="text-primaryLight text-sm mb-1">${usta.altKategori}</p>
+                                <div class="flex items-center gap-1 text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <span class="font-bold">${usta.puan}</span>
+                                    <span class="text-green-200/50 text-xs">(${usta.degerlendirmeSayisi})</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2 text-sm text-green-200/70 mb-4 flex-1">
+                            <div class="flex justify-between">
+                                <span><i class="fas fa-map-marker-alt w-5"></i> ${usta.konum}</span>
+                                <span>${usta.uzaklik} km</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span><i class="fas fa-briefcase w-5"></i> Deneyim</span>
+                                <span>${usta.deneyim} yıl</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span><i class="fas fa-money-bill w-5"></i> Fiyat</span>
+                                <span>${usta.fiyatAraligi}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full ${usta.musait ? 'bg-green-500' : 'bg-red-500'}"></span>
+                                <span>${usta.musait ? 'Müsait' : 'Meşgul'}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-2 mt-auto">
+                            <button onclick="showToast('📞 ${usta.adSoyad} aranıyor... ${usta.telefon}')" class="flex-1 bg-primary hover:bg-primaryLight text-white py-2 rounded-lg transition font-semibold text-sm">
+                                <i class="fas fa-phone mr-1"></i> Ara
+                            </button>
+                            <button onclick="showToast('✅ ${usta.adSoyad} ile rezervasyon talebi gönderildi')" class="flex-1 border border-primaryLight text-primaryLight hover:bg-primaryLight hover:text-white py-2 rounded-lg transition font-semibold text-sm">
+                                <i class="fas fa-calendar mr-1"></i> Randevu
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            renderPagination();
+        }
+        
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let html = '';
+            for (let i = 1; i <= totalPages; i++) {
+                html += `
+                    <button onclick="goToPage(${i})" class="w-10 h-10 rounded-lg ${currentPage === i ? 'bg-primary text-white' : 'glass text-green-200 hover:bg-primary/50'} transition">
+                        ${i}
+                    </button>
+                `;
+            }
+            pagination.innerHTML = html;
+        }
+        
+        function goToPage(page) {
+            currentPage = page;
+            renderResults();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function resetFilters() {
+            document.querySelectorAll('.filter-category').forEach(cb => cb.checked = false);
+            document.getElementById('locationFilter').value = '';
+            document.querySelector('input[name="rating"][value="0"]').checked = true;
+            document.getElementById('availableOnly').checked = false;
+            document.getElementById('searchInput').value = '';
+            applyFilters();
+        }
+        
+        function setupEventListeners() {
+            document.querySelectorAll('.filter-category').forEach(cb => {
+                cb.addEventListener('change', () => applyFilters());
+            });
+            document.getElementById('locationFilter').addEventListener('change', () => applyFilters());
+            document.querySelectorAll('.filter-rating').forEach(rb => {
+                rb.addEventListener('change', () => applyFilters());
+            });
+            document.getElementById('availableOnly').addEventListener('change', () => applyFilters());
+            document.getElementById('searchInput').addEventListener('input', () => applyFilters());
+            document.getElementById('sortSelect').addEventListener('change', () => applyFilters());
+        }
+        
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof ustalarDB !== 'undefined') {
+                // URL'den gelen filtreleri uygula
+                if (urlCategory) {
+                    document.querySelectorAll('.filter-category').forEach(cb => {
+                        if (cb.value === urlCategory) cb.checked = true;
+                    });
+                }
+                if (urlSearch) {
+                    document.getElementById('searchInput').value = urlSearch;
+                }
+                if (urlLocation) {
+                    document.getElementById('locationFilter').value = urlLocation;
+                }
+                
+                setupEventListeners();
+                applyFilters();
+            } else {
+                document.getElementById('ustaGrid').innerHTML = '<div class="col-span-full text-center py-12">Veri yüklenemedi. Lütfen sayfayı yenileyin.</div>';
+            }
+        });
+    </script>
+</body>
+</html>

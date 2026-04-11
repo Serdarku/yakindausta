@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hizmetler | YakındaUsta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        body {
+            background: linear-gradient(135deg, #0A2E0A 0%, #051505 100%);
+            color: #F5F5DC;
+        }
+        .glass {
+            background: rgba(30, 50, 25, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            border-color: #4CAF50;
+            box-shadow: 0 20px 35px -12px rgba(46,125,50,0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-green-500/30 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-2xl font-bold">
+                <span class="text-3xl">🛠️🌿</span>
+                <span class="text-white">Yakında<span class="text-green-400">Usta</span></span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-white/70 hover:text-green-400 transition">Ana Sayfa</a>
+                <a href="hizmetler.html" class="text-green-400 font-semibold">Hizmetler</a>
+                <a href="ustalar.html" class="text-white/70 hover:text-green-400 transition">Ustalar</a>
+                <a href="iletisim.html" class="text-white/70 hover:text-green-400 transition">İletişim</a>
+            </div>
+            <button class="md:hidden text-white text-2xl" onclick="toggleMenu()">☰</button>
+        </div>
+    </nav>
+
+    <main class="pt-28 pb-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Hizmet <span class="text-green-400">Kategorileri</span></h1>
+            <p class="text-center text-green-200/60 mb-12">İhtiyacınıza göre doğru ustayı bulun</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="ustalar.html?kategori=temizlik" class="glass rounded-2xl p-8 text-center card-hover">
+                    <div class="text-6xl mb-4">🧹</div>
+                    <h2 class="text-2xl font-bold mb-2">Temizlik</h2>
+                    <p class="text-green-200/70">Ev temizliği, ofis temizliği, inşaat sonrası temizlik, cam silme, halı yıkama</p>
+                    <div class="mt-4 text-green-400">10+ usta →</div>
+                </a>
+                
+                <a href="ustalar.html?kategori=elektrik" class="glass rounded-2xl p-8 text-center card-hover">
+                    <div class="text-6xl mb-4">⚡</div>
+                    <h2 class="text-2xl font-bold mb-2">Elektrik</h2>
+                    <p class="text-green-200/70">Ev elektriği, arıza müdahale, tesisat çekimi, klima montajı</p>
+                    <div class="mt-4 text-green-400">10+ usta →</div>
+                </a>
+                
+                <a href="ustalar.html?kategori=nakliye" class="glass rounded-2xl p-8 text-center card-hover">
+                    <div class="text-6xl mb-4">🚛</div>
+                    <h2 class="text-2xl font-bold mb-2">Nakliye</h2>
+                    <p class="text-green-200/70">Ev taşıma, ofis taşıma, parça eşya taşıma, asansörlü nakliye</p>
+                    <div class="mt-4 text-green-400">5+ usta →</div>
+                </a>
+                
+                <a href="ustalar.html?kategori=boya" class="glass rounded-2xl p-8 text-center card-hover">
+                    <div class="text-6xl mb-4">🎨</div>
+                    <h2 class="text-2xl font-bold mb-2">Boya & Dekorasyon</h2>
+                    <p class="text-green-200/70">İç cephe boya, dış cephe boya, dekoratif boya, mantolama</p>
+                    <div class="mt-4 text-green-400">10+ usta →</div>
+                </a>
+                
+                <a href="ustalar.html?kategori=marangoz" class="glass rounded-2xl p-8 text-center card-hover">
+                    <div class="text-6xl mb-4">🔨</div>
+                    <h2 class="text-2xl font-bold mb-2">Marangoz</h2>
+                    <p class="text-green-200/70">Mobilya yapımı, kapı pencere, mutfak dolabı, parke döşeme</p>
+                    <div class="mt-4 text-green-400">5+ usta →</div>
+                </a>
+                
+                <a href="ustalar.html?kategori=tesisat" class="glass rounded-2xl p-8 text-center card-hover">
+                    <div class="text-6xl mb-4">🔧</div>
+                    <h2 class="text-2xl font-bold mb-2">Tesisat</h2>
+                    <p class="text-green-200/70">Su tesisatı, kanalizasyon, batarya değişimi, kombi bakımı</p>
+                    <div class="mt-4 text-green-400">10+ usta →</div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-green-500/20 py-8 text-center text-sm text-green-200/40">
+        <p>© 2024 YakındaUsta - Giresun'un güvenilir usta platformu</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            // Mobile menu için basit toggle
+            alert('Mobil menü yakında eklenecek');
+        }
+    </script>
+</body>
+</html>
