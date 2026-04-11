@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımızda | YakındaUsta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root{
+            --ink:#0A0A0F;
+            --paper:#F8F5EF;
+            --amber:#F5A623;
+            --amber-d:#D4891A;
+            --slate:#16161F;
+            --muted:#6B6878;
+            --border:rgba(10,10,15,.08);
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+        .glass{background:rgba(248,245,239,.95);backdrop-filter:blur(12px);border:1px solid var(--border)}
+        .btn{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.35rem;border-radius:99px;font-size:.87rem;font-weight:600;text-decoration:none;transition:transform .15s,background .2s}
+        .btn:hover{transform:translateY(-1px)}
+        .btn-ghost{background:transparent;border:1.5px solid var(--border);color:var(--ink)}
+        .btn-amber{background:var(--amber);color:#fff}
+        nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.2rem 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(248,245,239,.93);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+        .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.35rem;color:var(--ink);text-decoration:none}
+        .nav-logo em{color:var(--amber);font-style:normal}
+        .nav-pill{display:flex;gap:1.75rem;background:white;border:1px solid var(--border);border-radius:99px;padding:.5rem 1.5rem}
+        .nav-pill a{font-size:.87rem;font-weight:500;color:var(--muted);text-decoration:none}
+        .nav-pill a:hover{color:var(--ink)}
+        footer{background:var(--ink);color:white;padding:3rem 5% 2rem;margin-top:4rem}
+        .container{max-width:1200px;margin:0 auto;padding:0 5%}
+        .page-header{background:var(--ink);color:white;padding:8rem 5% 4rem;text-align:center}
+        .page-header h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,4vw,4rem);font-weight:800}
+        .content-card{background:white;border-radius:24px;padding:2.5rem;margin:2rem auto;max-width:1000px;box-shadow:0 4px 20px rgba(0,0,0,.05);border:1px solid var(--border)}
+        .content-card h2{font-family:'Syne',sans-serif;font-size:1.5rem;margin:1.5rem 0 1rem;color:var(--ink)}
+        .content-card h2:first-child{margin-top:0}
+        .content-card p{color:var(--muted);line-height:1.7;margin-bottom:1rem}
+        .content-card ul{margin:1rem 0 1rem 1.5rem;color:var(--muted);line-height:1.7}
+        .content-card li{margin-bottom:.5rem}
+        .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0;text-align:center}
+        .stat-item{background:var(--paper);border-radius:16px;padding:1.5rem}
+        .stat-number{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:var(--amber)}
+        .stat-label{color:var(--muted);font-size:.85rem;margin-top:.5rem}
+        @media(max-width:768px){.nav-pill{display:none}.stat-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo">Yakında<em>Usta</em></a>
+    <div class="nav-pill">
+        <a href="hizmetler.html">Hizmetler</a>
+        <a href="ustalar.html">Ustalar</a>
+        <a href="index.html#nasil">Nasıl Çalışır</a>
+        <a href="index.html#fiyatlar">Fiyatlar</a>
+    </div>
+    <a href="iletisim.html" class="btn btn-amber">Usta Ol</a>
+</nav>
+
+<div class="page-header">
+    <h1>Hakkımızda</h1>
+    <p style="margin-top:1rem;opacity:.7;max-width:600px;margin-left:auto;margin-right:auto">Giresun'un ilk dijital usta platformu</p>
+</div>
+
+<div class="content-card">
+    <h2>🏠 YakındaUsta Kimdir?</h2>
+    <p><strong>YakındaUsta</strong>, 2024 yılında Giresun'da kurulmuş, şehrin ilk dijital usta platformudur. Amacımız, Giresun halkını güvenilir, deneyimli ve puanlı ustalarla buluşturmak. Temizlikten elektriğe, nakliyeden boyaya, marangozdan tesisata kadar birçok alanda hizmet veriyoruz.</p>
+    
+    <div class="stat-grid">
+        <div class="stat-item"><div class="stat-number">50+</div><div class="stat-label">Onaylı Usta</div></div>
+        <div class="stat-item"><div class="stat-number">12</div><div class="stat-label">Hizmet Kategorisi</div></div>
+        <div class="stat-item"><div class="stat-number">4.8★</div><div class="stat-label">Ortalama Puan</div></div>
+    </div>
+
+    <h2>🎯 Vizyonumuz</h2>
+    <p>Türkiye'nin en güvenilir usta platformu olmak ve yerel esnafın dijital dünyada hak ettiği değeri görmesini sağlamak. Giresun'dan başlayarak tüm Karadeniz bölgesine yayılmayı hedefliyoruz.</p>
+
+    <h2>🚀 Misyonumuz</h2>
+    <p>Giresun'da her işin ustasını 7/24 hızlı, güvenli ve şeffaf bir şekilde kullanıcılarıyla buluşturmak. Müşteri memnuniyetini en üst seviyede tutmak, ustalarımızın hak ettiği kazancı elde etmesini sağlamak.</p>
+
+    <h2>💎 Değerlerimiz</h2>
+    <ul>
+        <li><strong>Güven:</strong> Tüm ustalarımız kimlik doğrulamasından geçer.</li>
+        <li><strong>Şeffaflık:</strong> Fiyatlar ve puanlar herkes tarafından görülebilir.</li>
+        <li><strong>Kalite:</strong> Sadece yüksek puanlı ustalar platformda yer alır.</li>
+        <li><strong>Yerellik:</strong> Giresun'un her mahallesine hizmet götürüyoruz.</li>
+        <li><strong>Müşteri Memnuniyeti:</strong> İş bitmeden ödeme yapılmaz, garanti mekanizması vardır.</li>
+    </ul>
+
+    <h2>📞 Bize Ulaşın</h2>
+    <p><i class="fas fa-phone" style="color:var(--amber);margin-right:.5rem"></i> Telefon: <strong>0506 027 05 51</strong><br>
+    <i class="fas fa-envelope" style="color:var(--amber);margin-right:.5rem"></i> E-posta: <strong>info@yakindausta.com.tr</strong><br>
+    <i class="fas fa-map-marker-alt" style="color:var(--amber);margin-right:.5rem"></i> Adres: <strong>Giresun Merkez / Türkiye</strong></p>
+
+    <p style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:.85rem"><em>Yeşilin ustası, işin sağlamı 🌿</em></p>
+</div>
+
+<footer>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+        <span>© 2025 YakındaUsta · Giresun'un ilk usta platformu</span>
+        <span><i class="fas fa-phone"></i> 0506 027 05 51</span>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>YakındaUsta | Giresun'un Usta Platformu</title>
-    <meta name="description" content="Giresun'un ilk usta bulma platformu. Temizlik, elektrik, nakliye, boya, marangoz ve tesisat hizmetleri için güvenilir ustalar.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script>
@@ -13,9 +12,10 @@
                 extend: {
                     colors: {
                         primary: '#2E7D32',
-                        primaryLight: '#4CAF50',
+                        primaryLight: '#66BB6A',
                         primaryDark: '#1B5E20',
                         secondary: '#FF8F00',
+                        accent: '#FFD54F'
                     }
                 }
             }
@@ -24,73 +24,82 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
-        * {
-            font-family: 'Inter', sans-serif;
-        }
+        * { font-family: 'Inter', sans-serif; }
         
         body {
-            background: linear-gradient(135deg, #0A2E0A 0%, #051505 100%);
+            background: linear-gradient(135deg, #0A2E0A 0%, #0D3B0D 50%, #051505 100%);
             color: #F5F5DC;
         }
         
         .glass {
-            background: rgba(30, 50, 25, 0.7);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(76, 175, 80, 0.2);
+            background: rgba(30, 50, 25, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(102, 186, 106, 0.3);
         }
         
-        .glow {
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: #2E7D32;
-            filter: blur(120px);
-            opacity: 0.25;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: float 6s ease-in-out infinite;
-            pointer-events: none;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateX(-50%) translateY(0px); }
-            50% { transform: translateX(-50%) translateY(-20px); }
+        .glass-light {
+            background: rgba(50, 70, 45, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(102, 186, 106, 0.2);
         }
         
         .card-hover {
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
         
         .card-hover:hover {
-            transform: translateY(-8px);
-            border-color: #4CAF50 !important;
-            box-shadow: 0 20px 35px -12px rgba(46,125,50,0.3);
+            transform: translateY(-8px) scale(1.02);
+            border-color: #66BB6A !important;
+            box-shadow: 0 20px 35px -12px rgba(102, 186, 106, 0.4);
         }
         
-        .pulse-btn {
-            animation: pulse 2s infinite;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
         
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 143, 0, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 143, 0, 0); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(102, 186, 106, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(102, 186, 106, 0); }
         }
         
-        .animate-count {
-            transition: all 0.5s ease;
+        @keyframes shine {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
         }
         
-        ::-webkit-scrollbar {
-            width: 8px;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        ::-webkit-scrollbar-track {
-            background: #051505;
+        
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-pulse-slow { animation: pulse 2s infinite; }
+        .animate-fadeUp { animation: fadeInUp 0.6s ease forwards; }
+        
+        .shine-text {
+            background: linear-gradient(90deg, #F5F5DC, #FFD54F, #F5F5DC);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #2E7D32;
-            border-radius: 4px;
+        
+        .category-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            background: rgba(102, 186, 106, 0.2);
+            border-color: #66BB6A;
+        }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #051505; }
+        ::-webkit-scrollbar-thumb { background: #2E7D32; border-radius: 4px; }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden">
@@ -99,12 +108,11 @@
     <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-primaryLight/30 px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2 text-2xl font-bold group">
-                <span class="text-3xl group-hover:scale-110 transition-transform">🛠️🌿</span>
+                <span class="text-3xl group-hover:scale-110 transition-transform animate-float">🛠️🌿</span>
                 <span class="text-white">Yakında<span class="text-primaryLight">Usta</span></span>
             </a>
-            
             <div class="hidden md:flex items-center gap-8">
-                <a href="index.html" class="text-white hover:text-primaryLight transition font-semibold border-b-2 border-primaryLight pb-1">Ana Sayfa</a>
+                <a href="index.html" class="text-primaryLight font-semibold border-b-2 border-primaryLight pb-1">Ana Sayfa</a>
                 <a href="hizmetler.html" class="text-white/70 hover:text-primaryLight transition">Hizmetler</a>
                 <a href="ustalar.html" class="text-white/70 hover:text-primaryLight transition">Ustalar</a>
                 <a href="iletisim.html" class="text-white/70 hover:text-primaryLight transition">İletişim</a>
@@ -112,124 +120,73 @@
                     Usta Ol
                 </button>
             </div>
-            
-            <button class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
+            <button class="md:hidden text-white text-2xl" onclick="toggleMobileMenu()">☰</button>
         </div>
-        
-        <!-- Mobile Menu -->
         <div id="mobileMenu" class="hidden md:hidden mt-4 pt-4 border-t border-primaryLight/30">
             <div class="flex flex-col gap-4">
-                <a href="index.html" class="text-white hover:text-primaryLight py-2">Ana Sayfa</a>
+                <a href="index.html" class="text-primaryLight py-2">Ana Sayfa</a>
                 <a href="hizmetler.html" class="text-white/70 hover:text-primaryLight py-2">Hizmetler</a>
                 <a href="ustalar.html" class="text-white/70 hover:text-primaryLight py-2">Ustalar</a>
                 <a href="iletisim.html" class="text-white/70 hover:text-primaryLight py-2">İletişim</a>
-                <button onclick="showToast('📝 Kayıt formuna yönlendiriliyorsunuz...')" class="bg-primary text-white px-6 py-2 rounded-full font-semibold w-full">
-                    Usta Ol
-                </button>
+                <button onclick="showToast('📝 Kayıt formuna yönlendiriliyorsunuz...')" class="bg-primary text-white px-6 py-2 rounded-full font-semibold w-full">Usta Ol</button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 px-4 text-center">
-        <div class="glow"></div>
-        
+    <section class="relative pt-32 pb-20 px-4 text-center overflow-hidden">
+        <div class="absolute top-20 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-primaryLight rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
         <div class="relative z-10 max-w-4xl mx-auto">
             <div class="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-6 animate-pulse">
                 <i class="fas fa-map-marker-alt text-primaryLight"></i>
-                <span class="text-sm font-medium">Giresun'un ilk usta platformu</span>
+                <span class="text-sm font-medium">📍 Giresun'un ilk usta platformu</span>
             </div>
-            
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fadeUp">
                 Yeşilin ustası,<br>
-                işin <span class="text-yellow-400">sağlamı</span>
+                işin <span class="shine-text">sağlamı</span>
             </h1>
-            
-            <p class="text-lg md:text-xl text-green-100/80 mb-10 max-w-2xl mx-auto">
+            <p class="text-lg md:text-xl text-green-100/80 mb-10 max-w-2xl mx-auto animate-fadeUp">
                 Güvenilir ustalar, hızlı rezervasyon, garantili hizmet. Giresun'un her köşesine usta gönderiyoruz.
             </p>
-            
-            <!-- Search Box -->
-            <div class="glass rounded-2xl p-4 max-w-3xl mx-auto flex flex-col md:flex-row gap-3">
+            <div class="glass rounded-2xl p-4 max-w-3xl mx-auto flex flex-col md:flex-row gap-3 animate-fadeUp">
                 <div class="flex-1 relative">
                     <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" id="searchInput" placeholder="Ne lazım? (temizlik, elektrik...)" 
-                           class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-primaryLight/30 text-white placeholder-green-200/50 focus:outline-none focus:border-primaryLight">
+                    <input type="text" id="searchInput" placeholder="🔧 Ne lazım? (temizlik, elektrik...)" class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-primaryLight/30 text-white placeholder-green-200/50 focus:outline-none focus:border-primaryLight">
                 </div>
                 <div class="flex-1 relative">
                     <i class="fas fa-map-marker-alt absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                    <input type="text" id="locationInput" placeholder="Konumun (Mahalle/İlçe)" 
-                           class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-primaryLight/30 text-white placeholder-green-200/50 focus:outline-none focus:border-primaryLight">
+                    <input type="text" id="locationInput" placeholder="📍 Konumun (Mahalle/İlçe)" class="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-primaryLight/30 text-white placeholder-green-200/50 focus:outline-none focus:border-primaryLight">
                 </div>
                 <button onclick="searchUsta()" class="bg-gradient-to-r from-primary to-primaryLight text-white px-8 py-3 rounded-xl font-semibold hover:shadow-lg hover:shadow-primary/50 transition transform hover:scale-105">
                     Ara <i class="fas fa-arrow-right ml-1"></i>
                 </button>
             </div>
-            
-            <!-- Stats -->
             <div class="flex flex-wrap justify-center gap-8 md:gap-16 mt-12">
-                <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold text-primaryLight" id="stat1">0</div>
-                    <div class="text-sm text-green-200/70 mt-1">Onaylı Usta</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold text-primaryLight" id="stat2">0</div>
-                    <div class="text-sm text-green-200/70 mt-1">Hizmet Kategorisi</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl md:text-4xl font-bold text-primaryLight" id="stat3">0</div>
-                    <div class="text-sm text-green-200/70 mt-1">Ortalama Puan</div>
-                </div>
+                <div class="text-center"><div class="text-3xl md:text-4xl font-bold text-primaryLight" id="stat1">50</div><div class="text-sm text-green-200/70 mt-1">Onaylı Usta</div></div>
+                <div class="text-center"><div class="text-3xl md:text-4xl font-bold text-primaryLight" id="stat2">12</div><div class="text-sm text-green-200/70 mt-1">Hizmet Kategorisi</div></div>
+                <div class="text-center"><div class="text-3xl md:text-4xl font-bold text-primaryLight" id="stat3">4.8</div><div class="text-sm text-green-200/70 mt-1">Ortalama Puan</div></div>
             </div>
         </div>
     </section>
 
-    <!-- Categories -->
+    <!-- Categories (12 Kategori) -->
     <section class="py-16 px-4">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
-                Hizmet <span class="text-primaryLight">Kategorileri</span>
-            </h2>
-            <p class="text-center text-green-200/60 mb-12">İhtiyacın olan hizmeti seç, ustalar hemen yanıt versin</p>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <a href="ustalar.html?kategori=temizlik" class="glass rounded-2xl p-6 text-center card-hover transition group">
-                    <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🧹</div>
-                    <h3 class="font-semibold mb-1">Temizlik</h3>
-                    <p class="text-xs text-green-200/60">Ev, ofis, inşaat</p>
-                </a>
-                
-                <a href="ustalar.html?kategori=elektrik" class="glass rounded-2xl p-6 text-center card-hover transition group">
-                    <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">⚡</div>
-                    <h3 class="font-semibold mb-1">Elektrik</h3>
-                    <p class="text-xs text-green-200/60">Arıza, tesisat, klima</p>
-                </a>
-                
-                <a href="ustalar.html?kategori=nakliye" class="glass rounded-2xl p-6 text-center card-hover transition group">
-                    <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🚛</div>
-                    <h3 class="font-semibold mb-1">Nakliye</h3>
-                    <p class="text-xs text-green-200/60">Ev, ofis taşıma</p>
-                </a>
-                
-                <a href="ustalar.html?kategori=boya" class="glass rounded-2xl p-6 text-center card-hover transition group">
-                    <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🎨</div>
-                    <h3 class="font-semibold mb-1">Boya</h3>
-                    <p class="text-xs text-green-200/60">İç-dış cephe</p>
-                </a>
-                
-                <a href="ustalar.html?kategori=marangoz" class="glass rounded-2xl p-6 text-center card-hover transition group">
-                    <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🔨</div>
-                    <h3 class="font-semibold mb-1">Marangoz</h3>
-                    <p class="text-xs text-green-200/60">Mobilya, kapı</p>
-                </a>
-                
-                <a href="ustalar.html?kategori=tesisat" class="glass rounded-2xl p-6 text-center card-hover transition group">
-                    <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">🔧</div>
-                    <h3 class="font-semibold mb-1">Tesisat</h3>
-                    <p class="text-xs text-green-200/60">Su, kanalizasyon</p>
-                </a>
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Hizmet <span class="text-primaryLight">Kategorileri</span></h2>
+            <p class="text-center text-green-200/60 mb-12">12 farklı kategoride profesyonel ustalar</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                <a href="ustalar.html?kategori=temizlik" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">🧹</div><h3 class="font-semibold">Temizlik</h3><p class="text-xs text-green-200/60">Ev, ofis, inşaat</p></a>
+                <a href="ustalar.html?kategori=elektrik" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">⚡</div><h3 class="font-semibold">Elektrik</h3><p class="text-xs text-green-200/60">Arıza, tesisat</p></a>
+                <a href="ustalar.html?kategori=nakliye" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">🚛</div><h3 class="font-semibold">Nakliye</h3><p class="text-xs text-green-200/60">Ev, ofis taşıma</p></a>
+                <a href="ustalar.html?kategori=boya" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">🎨</div><h3 class="font-semibold">Boya</h3><p class="text-xs text-green-200/60">İç-dış cephe</p></a>
+                <a href="ustalar.html?kategori=marangoz" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">🔨</div><h3 class="font-semibold">Marangoz</h3><p class="text-xs text-green-200/60">Mobilya, kapı</p></a>
+                <a href="ustalar.html?kategori=tesisat" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">🔧</div><h3 class="font-semibold">Tesisat</h3><p class="text-xs text-green-200/60">Su, kanalizasyon</p></a>
+                <a href="ustalar.html?kategori=badana" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">🖌️</div><h3 class="font-semibold">Badana</h3><p class="text-xs text-green-200/60">Sıva, alçı</p></a>
+                <a href="ustalar.html?kategori=cam" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">🪟</div><h3 class="font-semibold">Camcı</h3><p class="text-xs text-green-200/60">Pencere, cam</p></a>
+                <a href="ustalar.html?kategori=halı" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">🧼</div><h3 class="font-semibold">Halı Yıkama</h3><p class="text-xs text-green-200/60">Koltuk, halı</p></a>
+                <a href="ustalar.html?kategori=kilit" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">🔑</div><h3 class="font-semibold">Kilitçi</h3><p class="text-xs text-green-200/60">Kilit, anahtar</p></a>
+                <a href="ustalar.html?kategori=avize" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">💡</div><h3 class="font-semibold">Avize Montaj</h3><p class="text-xs text-green-200/60">Led, aydınlatma</p></a>
+                <a href="ustalar.html?kategori=tadilat" class="glass rounded-2xl p-5 text-center category-card"><div class="text-4xl mb-2">🏠</div><h3 class="font-semibold">Tadilat</h3><p class="text-xs text-green-200/60">Tamirat, yenileme</p></a>
             </div>
         </div>
     </section>
@@ -237,22 +194,13 @@
     <!-- Featured Workers -->
     <section class="py-16 px-4 bg-primaryDark/20">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
-                Öne Çıkan <span class="text-primaryLight">Ustalar</span>
-            </h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Öne Çıkan <span class="text-primaryLight">Ustalar</span></h2>
             <p class="text-center text-green-200/60 mb-12">En yüksek puanlı ve güvenilir ustalarımız</p>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="featuredWorkers">
-                <!-- JS ile doldurulacak -->
-                <div class="glass rounded-2xl p-6 text-center">
-                    <div class="animate-pulse">Yükleniyor...</div>
-                </div>
+                <div class="glass rounded-2xl p-6 text-center animate-pulse">Yükleniyor...</div>
             </div>
-            
             <div class="text-center mt-10">
-                <a href="ustalar.html" class="inline-block border-2 border-primaryLight text-primaryLight px-8 py-3 rounded-full font-semibold hover:bg-primary hover:text-white transition">
-                    Tüm Ustaları Gör <i class="fas fa-arrow-right ml-2"></i>
-                </a>
+                <a href="ustalar.html" class="inline-block border-2 border-primaryLight text-primaryLight px-8 py-3 rounded-full font-semibold hover:bg-primary hover:text-white transition hover:scale-105 transform">Tüm Ustaları Gör <i class="fas fa-arrow-right ml-2"></i></a>
             </div>
         </div>
     </section>
@@ -260,52 +208,28 @@
     <!-- How It Works -->
     <section class="py-16 px-4">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">
-                Nasıl <span class="text-primaryLight">Çalışır?</span>
-            </h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Nasıl <span class="text-primaryLight">Çalışır?</span></h2>
             <p class="text-center text-green-200/60 mb-12">4 adımda işinizi halledin</p>
-            
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="glass rounded-2xl p-6 text-center card-hover">
-                    <div class="text-4xl mb-3">🔍</div>
-                    <div class="text-2xl font-bold text-primaryLight mb-2">1</div>
-                    <h3 class="font-semibold mb-1">Hizmet Seç</h3>
-                    <p class="text-sm text-green-200/60">İhtiyacın olan kategoriyi seç</p>
-                </div>
-                <div class="glass rounded-2xl p-6 text-center card-hover">
-                    <div class="text-4xl mb-3">👤</div>
-                    <div class="text-2xl font-bold text-primaryLight mb-2">2</div>
-                    <h3 class="font-semibold mb-1">Usta Bul</h3>
-                    <p class="text-sm text-green-200/60">Puanları ve yorumları incele</p>
-                </div>
-                <div class="glass rounded-2xl p-6 text-center card-hover">
-                    <div class="text-4xl mb-3">📅</div>
-                    <div class="text-2xl font-bold text-primaryLight mb-2">3</div>
-                    <h3 class="font-semibold mb-1">Rezervasyon</h3>
-                    <p class="text-sm text-green-200/60">Tarih ve saat seç, onay al</p>
-                </div>
-                <div class="glass rounded-2xl p-6 text-center card-hover">
-                    <div class="text-4xl mb-3">✅</div>
-                    <div class="text-2xl font-bold text-primaryLight mb-2">4</div>
-                    <h3 class="font-semibold mb-1">İş Tamam</h3>
-                    <p class="text-sm text-green-200/60">İş bitti, öde ve yorum yap</p>
-                </div>
+                <div class="glass rounded-2xl p-6 text-center card-hover"><div class="text-5xl mb-3 animate-float">🔍</div><div class="text-3xl font-bold text-primaryLight mb-2">1</div><h3 class="font-semibold mb-1">Hizmet Seç</h3><p class="text-sm text-green-200/60">İhtiyacın olan kategoriyi seç</p></div>
+                <div class="glass rounded-2xl p-6 text-center card-hover"><div class="text-5xl mb-3 animate-float" style="animation-delay:0.2s">👤</div><div class="text-3xl font-bold text-primaryLight mb-2">2</div><h3 class="font-semibold mb-1">Usta Bul</h3><p class="text-sm text-green-200/60">Puanları ve yorumları incele</p></div>
+                <div class="glass rounded-2xl p-6 text-center card-hover"><div class="text-5xl mb-3 animate-float" style="animation-delay:0.4s">📅</div><div class="text-3xl font-bold text-primaryLight mb-2">3</div><h3 class="font-semibold mb-1">Rezervasyon</h3><p class="text-sm text-green-200/60">Tarih ve saat seç, onay al</p></div>
+                <div class="glass rounded-2xl p-6 text-center card-hover"><div class="text-5xl mb-3 animate-float" style="animation-delay:0.6s">✅</div><div class="text-3xl font-bold text-primaryLight mb-2">4</div><h3 class="font-semibold mb-1">İş Tamam</h3><p class="text-sm text-green-200/60">İş bitti, öde ve yorum yap</p></div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="py-20 px-4 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-primaryLight/20"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/30 to-primaryLight/30"></div>
         <div class="max-w-4xl mx-auto text-center relative z-10">
             <h2 class="text-3xl md:text-5xl font-bold mb-6">Sen de Giresun'un ustası ol!</h2>
             <p class="text-lg text-green-100/80 mb-8">İlk 50 usta arasına katıl, 3 ay ücretsiz Pro plan kazan. Şimdi başvur, işlerini artır.</p>
-            
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <button onclick="showToast('📝 Kayıt formuna yönlendiriliyorsunuz...')" class="bg-gradient-to-r from-primary to-primaryLight text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl hover:shadow-primary/50 transition transform hover:scale-105">
                     <i class="fas fa-user-plus mr-2"></i> Hemen Kaydol
                 </button>
-                <button onclick="window.location.href='https://wa.me/905XXXXXXXXX'" class="border-2 border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition">
+                <button onclick="window.location.href='https://wa.me/905060270551'" class="border-2 border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition">
                     <i class="fab fa-whatsapp mr-2"></i> WhatsApp ile Ulaş
                 </button>
             </div>
@@ -316,189 +240,37 @@
     <footer class="border-t border-primaryLight/20 pt-16 pb-8 px-4">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-                <div>
-                    <div class="flex items-center gap-2 text-xl font-bold mb-4">
-                        <span class="text-2xl">🛠️🌿</span>
-                        <span>Yakında<span class="text-primaryLight">Usta</span></span>
-                    </div>
-                    <p class="text-green-200/60 text-sm">Giresun'un güvenilir usta platformu. Yeşilin ustası, işin sağlamı.</p>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-4">Hizmetler</h4>
-                    <ul class="space-y-2 text-sm text-green-200/60">
-                        <li><a href="ustalar.html?kategori=temizlik" class="hover:text-primaryLight transition">Temizlik</a></li>
-                        <li><a href="ustalar.html?kategori=elektrik" class="hover:text-primaryLight transition">Elektrik</a></li>
-                        <li><a href="ustalar.html?kategori=nakliye" class="hover:text-primaryLight transition">Nakliye</a></li>
-                        <li><a href="ustalar.html?kategori=boya" class="hover:text-primaryLight transition">Boya & Dekorasyon</a></li>
-                        <li><a href="ustalar.html?kategori=marangoz" class="hover:text-primaryLight transition">Marangoz</a></li>
-                        <li><a href="ustalar.html?kategori=tesisat" class="hover:text-primaryLight transition">Tesisat</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-4">Kurumsal</h4>
-                    <ul class="space-y-2 text-sm text-green-200/60">
-                        <li><a href="#" class="hover:text-primaryLight transition">Hakkımızda</a></li>
-                        <li><a href="#" class="hover:text-primaryLight transition">KVKK & Gizlilik</a></li>
-                        <li><a href="#" class="hover:text-primaryLight transition">Kullanım Koşulları</a></li>
-                        <li><a href="iletisim.html" class="hover:text-primaryLight transition">İletişim</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-4">Bizi Takip Edin</h4>
-                    <div class="flex gap-4 mb-6">
-                        <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primaryLight transition">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primaryLight transition">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primaryLight transition">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primaryLight transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold mb-2 text-sm">İletişim</h4>
-                        <p class="text-sm text-green-200/60">
-                            <i class="fas fa-envelope mr-2"></i> info@yakindausta.com.tr<br>
-                            <i class="fas fa-phone mr-2"></i> 0850 123 45 67
-                        </p>
-                    </div>
-                </div>
+                <div><div class="flex items-center gap-2 text-xl font-bold mb-4"><span class="text-2xl">🛠️🌿</span><span>Yakında<span class="text-primaryLight">Usta</span></span></div><p class="text-green-200/60 text-sm">Giresun'un güvenilir usta platformu. Yeşilin ustası, işin sağlamı.</p><div class="mt-4"><p class="text-sm"><i class="fas fa-phone mr-2 text-primaryLight"></i> 0506 027 05 51</p><p class="text-sm"><i class="fas fa-envelope mr-2 text-primaryLight"></i> info@yakindausta.com.tr</p></div></div>
+                <div><h4 class="font-semibold mb-4">Hizmetler</h4><ul class="space-y-2 text-sm text-green-200/60"><li><a href="ustalar.html?kategori=temizlik" class="hover:text-primaryLight transition">Temizlik</a></li><li><a href="ustalar.html?kategori=elektrik" class="hover:text-primaryLight transition">Elektrik</a></li><li><a href="ustalar.html?kategori=nakliye" class="hover:text-primaryLight transition">Nakliye</a></li><li><a href="ustalar.html?kategori=boya" class="hover:text-primaryLight transition">Boya & Dekorasyon</a></li><li><a href="ustalar.html?kategori=marangoz" class="hover:text-primaryLight transition">Marangoz</a></li><li><a href="ustalar.html?kategori=tesisat" class="hover:text-primaryLight transition">Tesisat</a></li></ul></div>
+                <div><h4 class="font-semibold mb-4">Kurumsal</h4><ul class="space-y-2 text-sm text-green-200/60"><li><a href="#" class="hover:text-primaryLight transition">Hakkımızda</a></li><li><a href="#" class="hover:text-primaryLight transition">KVKK & Gizlilik</a></li><li><a href="#" class="hover:text-primaryLight transition">Kullanım Koşulları</a></li><li><a href="iletisim.html" class="hover:text-primaryLight transition">İletişim</a></li></ul></div>
+                <div><h4 class="font-semibold mb-4">Bizi Takip Edin</h4><div class="flex gap-4 mb-6"><a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primaryLight transition"><i class="fab fa-instagram"></i></a><a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primaryLight transition"><i class="fab fa-facebook"></i></a><a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primaryLight transition"><i class="fab fa-whatsapp"></i></a><a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-primaryLight transition"><i class="fab fa-twitter"></i></a></div><h4 class="font-semibold mb-2 text-sm">İletişim</h4><p class="text-sm text-green-200/60"><i class="fas fa-phone mr-2 text-primaryLight"></i> 0506 027 05 51<br><i class="fas fa-envelope mr-2 text-primaryLight"></i> info@yakindausta.com.tr</p></div>
             </div>
-            
-            <div class="border-t border-primaryLight/20 pt-8 text-center text-sm text-green-200/40">
-                <p>© 2024 YakındaUsta - Tüm hakları saklıdır. Giresun'un ilk usta platformu.</p>
-                <p class="mt-2">🌿 Yeşilin ustası, işin sağlamı</p>
-            </div>
+            <div class="border-t border-primaryLight/20 pt-8 text-center text-sm text-green-200/40"><p>© 2024 YakındaUsta - Tüm hakları saklıdır. Giresun'un ilk usta platformu.</p><p class="mt-2">🌿 Yeşilin ustası, işin sağlamı</p></div>
         </div>
     </footer>
 
     <!-- Acil Buton -->
-    <button onclick="showToast('🚨 Acil usta talebiniz alındı! En yakın usta 5 dk içinde arar.')" 
-            class="fixed bottom-6 right-6 bg-gradient-to-r from-orange-600 to-secondary text-white px-6 py-4 rounded-full font-bold shadow-lg pulse-btn z-50 flex items-center gap-2 hover:scale-105 transition">
-        <i class="fas fa-exclamation-triangle"></i>
-        <span class="hidden sm:inline">ACİL USTA</span>
-    </button>
+    <button onclick="showToast('🚨 Acil usta talebiniz alındı! En yakın usta 5 dk içinde arar. 0506 027 05 51')" class="fixed bottom-6 right-6 bg-gradient-to-r from-orange-600 to-secondary text-white px-6 py-4 rounded-full font-bold shadow-lg z-50 flex items-center gap-2 hover:scale-105 transition animate-pulse-slow"><i class="fas fa-exclamation-triangle"></i><span class="hidden sm:inline">ACİL USTA</span></button>
 
-    <!-- Toast -->
-    <div id="toast" class="fixed bottom-24 right-6 bg-primary text-white px-6 py-3 rounded-full shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50">
-        Bildirim mesajı
-    </div>
+    <div id="toast" class="fixed bottom-24 right-6 bg-primary text-white px-6 py-3 rounded-full shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50">Bildirim mesajı</div>
 
-    <script src="js/data.js"></script>
     <script>
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
+        const ustalarDB = [
+            { id: 1, adSoyad: "Ayşe Yılmaz", kategori: "temizlik", altKategori: "Ev Temizliği", puan: 4.8, degerlendirmeSayisi: 127, konum: "Giresun Merkez", uzaklik: 1.2, deneyim: 8, musait: true, acil: true, telefon: "0506 027 05 51", foto: "https://i.pravatar.cc/150?img=5", fiyatAraligi: "150-250 TL/saat" },
+            { id: 2, adSoyad: "Mehmet Usta", kategori: "elektrik", altKategori: "Ev Elektriği", puan: 4.9, degerlendirmeSayisi: 245, konum: "Giresun Merkez", uzaklik: 0.5, deneyim: 20, musait: true, acil: true, telefon: "0506 027 05 51", foto: "https://i.pravatar.cc/150?img=11", fiyatAraligi: "200-400 TL/saat" },
+            { id: 3, adSoyad: "Fatma Kaya", kategori: "temizlik", altKategori: "Ofis Temizliği", puan: 4.9, degerlendirmeSayisi: 89, konum: "Giresun Merkez", uzaklik: 2.5, deneyim: 12, musait: true, acil: false, telefon: "0506 027 05 51", foto: "https://i.pravatar.cc/150?img=9", fiyatAraligi: "200-350 TL/saat" },
+            { id: 4, adSoyad: "Ali Kaya", kategori: "elektrik", altKategori: "Arıza", puan: 4.8, degerlendirmeSayisi: 189, konum: "Giresun Merkez", uzaklik: 1.5, deneyim: 15, musait: true, acil: true, telefon: "0506 027 05 51", foto: "https://i.pravatar.cc/150?img=12", fiyatAraligi: "150-300 TL/saat" },
+            { id: 5, adSoyad: "Merve Aydın", kategori: "temizlik", altKategori: "Halı Yıkama", puan: 4.9, degerlendirmeSayisi: 203, konum: "Tirebolu", uzaklik: 45.0, deneyim: 10, musait: true, acil: true, telefon: "0506 027 05 51", foto: "https://i.pravatar.cc/150?img=24", fiyatAraligi: "50-100 TL/m²" },
+            { id: 6, adSoyad: "Derya Usta", kategori: "temizlik", altKategori: "İnşaat Sonrası", puan: 4.9, degerlendirmeSayisi: 112, konum: "Giresun Merkez", uzaklik: 1.8, deneyim: 15, musait: true, acil: true, telefon: "0506 027 05 51", foto: "https://i.pravatar.cc/150?img=48", fiyatAraligi: "600-1000 TL/gün" },
+            { id: 7, adSoyad: "İbrahim Şahin", kategori: "elektrik", altKategori: "Klima", puan: 4.9, degerlendirmeSayisi: 167, konum: "Tirebolu", uzaklik: 48.0, deneyim: 12, musait: true, acil: true, telefon: "0506 027 05 51", foto: "https://i.pravatar.cc/150?img=14", fiyatAraligi: "400-800 TL/adet" },
+            { id: 8, adSoyad: "Kemal Usta", kategori: "elektrik", altKategori: "Ev Elektriği", puan: 4.9, degerlendirmeSayisi: 234, konum: "Giresun Merkez", uzaklik: 1.2, deneyim: 25, musait: false, acil: true, telefon: "0506 027 05 51", foto: "https://i.pravatar.cc/150?img=68", fiyatAraligi: "250-500 TL/saat" }
+        ];
         
-        // Toast Notification
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
-        }
-        
-        // Animate Numbers
-        function animateNumber(id, target, suffix = '') {
-            let current = 0;
-            const increment = target / 50;
-            const element = document.getElementById(id);
-            if (!element) return;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    element.textContent = target + suffix;
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current) + suffix;
-                }
-            }, 30);
-        }
-        
-        // Load Featured Workers
-        function loadFeaturedWorkers() {
-            const container = document.getElementById('featuredWorkers');
-            if (!container) return;
-            
-            if (typeof ustalarDB === 'undefined') {
-                container.innerHTML = '<div class="col-span-full text-center py-8">Veri yükleniyor...</div>';
-                return;
-            }
-            
-            // En yüksek puanlı 6 ustayı al
-            const featured = [...ustalarDB].sort((a, b) => b.puan - a.puan).slice(0, 6);
-            
-            container.innerHTML = featured.map(usta => `
-                <div class="glass rounded-2xl p-6 card-hover transition">
-                    <div class="flex items-start justify-between mb-4">
-                        <img src="${usta.foto}" alt="${usta.adSoyad}" class="w-16 h-16 rounded-full object-cover border-2 border-primaryLight">
-                        <div class="text-right">
-                            <div class="flex items-center gap-1 text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <span class="font-bold">${usta.puan}</span>
-                            </div>
-                            <div class="text-xs text-green-200/60">${usta.degerlendirmeSayisi} değerlendirme</div>
-                        </div>
-                    </div>
-                    
-                    <h3 class="text-xl font-bold mb-1">${usta.adSoyad}</h3>
-                    <p class="text-primaryLight text-sm mb-2">${usta.altKategori}</p>
-                    
-                    <div class="flex items-center gap-4 text-sm text-green-200/70 mb-4">
-                        <span><i class="fas fa-map-marker-alt mr-1"></i>${usta.uzaklik} km</span>
-                        <span><i class="fas fa-briefcase mr-1"></i>${usta.deneyim} yıl</span>
-                    </div>
-                    
-                    <div class="flex gap-2">
-                        <button onclick="showToast('📞 ${usta.adSoyad} aranıyor... ${usta.telefon}')" class="flex-1 bg-primary hover:bg-primaryLight text-white py-2 rounded-lg transition text-sm font-semibold">
-                            <i class="fas fa-phone mr-1"></i> Ara
-                        </button>
-                        <button onclick="showToast('📅 ${usta.adSoyad} ile rezervasyon sayfasına yönlendiriliyorsunuz...')" class="flex-1 border border-primaryLight text-primaryLight hover:bg-primaryLight hover:text-white py-2 rounded-lg transition text-sm font-semibold">
-                            <i class="fas fa-calendar mr-1"></i> Randevu
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        // Search Function
-        function searchUsta() {
-            const search = document.getElementById('searchInput')?.value || '';
-            const location = document.getElementById('locationInput')?.value || '';
-            
-            if (search || location) {
-                window.location.href = `ustalar.html?search=${encodeURIComponent(search)}&location=${encodeURIComponent(location)}`;
-            } else {
-                showToast('🔍 Lütfen bir hizmet veya konum girin');
-            }
-        }
-        
-        // Initialize
-        window.addEventListener('DOMContentLoaded', () => {
-            animateNumber('stat1', 50, '+');
-            animateNumber('stat2', 6, '+');
-            animateNumber('stat3', 4.8, '★');
-            loadFeaturedWorkers();
-        });
-        
-        // Enter key search
-        document.getElementById('searchInput')?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') searchUsta();
-        });
-        document.getElementById('locationInput')?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') searchUsta();
-        });
+        function showToast(msg) { let t=document.getElementById('toast'); t.textContent=msg; t.classList.remove('translate-y-20','opacity-0'); setTimeout(()=>t.classList.add('translate-y-20','opacity-0'),3000); }
+        function toggleMobileMenu() { document.getElementById('mobileMenu').classList.toggle('hidden'); }
+        function searchUsta() { let s=document.getElementById('searchInput')?.value||'', l=document.getElementById('locationInput')?.value||''; if(s||l) window.location.href=`ustalar.html?search=${encodeURIComponent(s)}&location=${encodeURIComponent(l)}`; else showToast('🔍 Lütfen bir hizmet veya konum girin'); }
+        function loadFeatured() { let container=document.getElementById('featuredWorkers'); if(!container) return; let featured=[...ustalarDB].sort((a,b)=>b.puan-a.puan).slice(0,6); container.innerHTML=featured.map(u=>`<div class="glass rounded-2xl p-5 card-hover"><div class="flex gap-4 mb-4"><img src="${u.foto}" class="w-16 h-16 rounded-full object-cover border-2 border-primaryLight"><div><h3 class="font-bold text-lg">${u.adSoyad}</h3><p class="text-primaryLight text-sm">${u.altKategori}</p><div class="flex items-center gap-1 text-yellow-400 text-sm"><i class="fas fa-star"></i> ${u.puan} <span class="text-green-200/50">(${u.degerlendirmeSayisi})</span></div></div></div><div class="flex gap-2 mt-3"><button onclick="showToast('📞 ${u.adSoyad} aranıyor... 0506 027 05 51')" class="flex-1 bg-primary hover:bg-primaryLight text-white py-2 rounded-lg text-sm"><i class="fas fa-phone mr-1"></i> Ara</button><button onclick="showToast('✅ ${u.adSoyad} ile rezervasyon talebi gönderildi')" class="flex-1 border border-primaryLight text-primaryLight hover:bg-primaryLight hover:text-white py-2 rounded-lg text-sm"><i class="fas fa-calendar mr-1"></i> Randevu</button></div></div>`).join(''); }
+        window.addEventListener('DOMContentLoaded',()=>{ loadFeatured(); document.getElementById('searchInput')?.addEventListener('keypress',(e)=>{if(e.key==='Enter') searchUsta();}); });
     </script>
 </body>
 </html>
