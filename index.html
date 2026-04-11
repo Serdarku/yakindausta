@@ -1,24 +1,833 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yakında Usta - Profesyonel Çözümler</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; background-color: #f4f4f4; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
-        .hero { padding: 40px; background: #fff; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
-        h1 { color: #333; margin-top: 0; }
-        p { color: #555; font-size: 1.1em; }
-        .logo { font-size: 3em; color: #e67e22; font-weight: bold; margin-bottom: 10px; }
-        .btn { background: #e67e22; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin-top: 20px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yakında Usta — Güvenilir Ustalar, Tek Platformda</title>
+<meta name="description" content="Giresun'un ilk usta bulma platformu. Temizlik, tadilat, nakliye, boya ve daha fazlası. Güvenilir ustalar, anlık rezervasyon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --turuncu: #E8460A;
+    --turuncu-koyu: #C43A08;
+    --siyah: #0D0D0D;
+    --beyaz: #F7F4EF;
+    --gri: #6B6B6B;
+    --gri-acik: #EBEBEB;
+    --kart: #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--beyaz);
+    color: var(--siyah);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(247,244,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: var(--siyah);
+    text-decoration: none;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .logo span { color: var(--turuncu); }
+
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: var(--turuncu);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-icon svg { width: 18px; height: 18px; fill: white; }
+
+  .nav-links { display: flex; align-items: center; gap: 2rem; }
+  .nav-links a {
+    font-size: .9rem; color: var(--gri);
+    text-decoration: none; font-weight: 400;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--siyah); }
+
+  .nav-cta {
+    background: var(--siyah) !important;
+    color: white !important;
+    padding: .55rem 1.25rem !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    font-size: .88rem !important;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--turuncu) !important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 7rem 5% 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(circle at 75% 50%, rgba(232,70,10,0.08) 0%, transparent 55%),
+      radial-gradient(circle at 20% 80%, rgba(232,70,10,0.05) 0%, transparent 45%);
+  }
+
+  .hero-grid-overlay {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 780px;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: white;
+    border: 1px solid var(--gri-acik);
+    border-radius: 99px;
+    padding: .35rem 1rem;
+    font-size: .8rem;
+    color: var(--gri);
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: var(--turuncu);
+    border-radius: 50%;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    color: var(--siyah);
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--turuncu);
+    position: relative;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--gri);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+  .btn-primary {
+    background: var(--turuncu);
+    color: white;
+    padding: .9rem 2rem;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+    display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .btn-primary:hover { background: var(--turuncu-koyu); transform: translateY(-1px); }
+
+  .btn-secondary {
+    color: var(--siyah);
+    padding: .9rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: .95rem;
+    text-decoration: none;
+    border: 1px solid rgba(0,0,0,0.12);
+    transition: border-color .2s, background .2s;
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: white;
+  }
+  .btn-secondary:hover { border-color: var(--siyah); background: var(--siyah); color: white; }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 800;
+    color: var(--siyah);
+  }
+  .stat-label { font-size: .82rem; color: var(--gri); margin-top: .2rem; }
+
+  /* ─── KATEGORİLER ─── */
+  section { padding: 6rem 5%; }
+
+  .section-tag {
+    font-size: .78rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .12em;
+    color: var(--turuncu);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    font-size: 1rem; color: var(--gri); line-height: 1.7;
+    max-width: 500px; margin-bottom: 3rem; font-weight: 300;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .cat-card {
+    background: white;
+    border: 1px solid var(--gri-acik);
+    border-radius: 14px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+    text-decoration: none;
+    color: var(--siyah);
+    display: block;
+  }
+  .cat-card:hover {
+    border-color: var(--turuncu);
+    box-shadow: 0 4px 20px rgba(232,70,10,0.1);
+    transform: translateY(-2px);
+  }
+
+  .cat-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .cat-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    margin-bottom: .3rem;
+  }
+
+  .cat-desc { font-size: .82rem; color: var(--gri); line-height: 1.5; }
+
+  .cat-kom {
+    display: inline-block;
+    margin-top: .8rem;
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--turuncu);
+    background: rgba(232,70,10,0.08);
+    padding: .2rem .6rem;
+    border-radius: 4px;
+  }
+
+  /* ─── NASIL ÇALIŞIR ─── */
+  .how-section { background: var(--siyah); color: white; }
+  .how-section h2, .how-section .section-tag { color: white; }
+  .how-section .section-tag { color: var(--turuncu); }
+  .how-section .section-sub { color: rgba(255,255,255,0.5); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    counter-reset: step;
+  }
+
+  .step {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 1.8rem;
+    position: relative;
+    counter-increment: step;
+    transition: border-color .2s;
+  }
+  .step:hover { border-color: rgba(232,70,10,0.4); }
+
+  .step::before {
+    content: "0" counter(step);
+    font-family: 'Syne', sans-serif;
+    font-size: .75rem; font-weight: 700;
+    color: var(--turuncu);
+    display: block; margin-bottom: 1.2rem;
+    letter-spacing: .08em;
+  }
+
+  .step-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+
+  .step h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem; font-weight: 700;
+    margin-bottom: .6rem;
+  }
+
+  .step p { font-size: .87rem; color: rgba(255,255,255,0.5); line-height: 1.6; font-weight: 300; }
+
+  /* ─── NEDEN BİZ ─── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .why-text { padding-right: 2rem; }
+
+  .features-list { list-style: none; display: flex; flex-direction: column; gap: 1.2rem; }
+  .features-list li {
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .feat-icon {
+    width: 36px; height: 36px; flex-shrink: 0;
+    background: rgba(232,70,10,0.08);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .feat-title { font-weight: 500; font-size: .95rem; margin-bottom: .2rem; }
+  .feat-sub { font-size: .83rem; color: var(--gri); line-height: 1.5; }
+
+  .why-visual {
+    background: white;
+    border: 1px solid var(--gri-acik);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+  }
+
+  .mock-header {
+    display: flex; align-items: center; gap: .7rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gri-acik);
+  }
+  .mock-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--turuncu);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: .9rem;
+  }
+  .mock-name { font-weight: 600; font-size: .9rem; }
+  .mock-role { font-size: .78rem; color: var(--gri); }
+  .mock-badge {
+    margin-left: auto;
+    background: rgba(16,185,129,0.1);
+    color: #059669;
+    font-size: .75rem; font-weight: 600;
+    padding: .25rem .7rem; border-radius: 99px;
+  }
+
+  .mock-rating {
+    display: flex; align-items: center; gap: .3rem;
+    font-size: .85rem; font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .stars { color: #F59E0B; letter-spacing: 1px; }
+
+  .mock-cats {
+    display: flex; flex-wrap: wrap; gap: .4rem;
+    margin-bottom: 1.2rem;
+  }
+  .mock-cat {
+    font-size: .75rem; padding: .3rem .7rem;
+    background: var(--beyaz);
+    border: 1px solid var(--gri-acik);
+    border-radius: 6px; color: var(--gri);
+  }
+
+  .mock-btn {
+    width: 100%;
+    background: var(--turuncu);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: .8rem;
+    font-size: .9rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ─── FİYAT ─── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .price-card {
+    border: 1px solid var(--gri-acik);
+    border-radius: 16px;
+    padding: 2rem;
+    background: white;
+    position: relative;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .price-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+
+  .price-card.featured {
+    border-color: var(--turuncu);
+    background: var(--siyah);
+    color: white;
+  }
+
+  .price-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--turuncu);
+    color: white;
+    font-size: .75rem; font-weight: 700;
+    padding: .3rem .9rem; border-radius: 99px;
+    white-space: nowrap;
+  }
+
+  .price-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    margin-bottom: .5rem;
+  }
+
+  .price-amount {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem; font-weight: 800;
+    margin-bottom: .3rem;
+  }
+
+  .price-period { font-size: .82rem; color: var(--gri); margin-bottom: 1.5rem; }
+  .price-card.featured .price-period { color: rgba(255,255,255,0.4); }
+
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: .6rem; margin-bottom: 1.8rem; }
+  .price-features li { font-size: .87rem; display: flex; gap: .5rem; align-items: flex-start; }
+  .price-features li::before { content: "✓"; color: var(--turuncu); font-weight: 700; flex-shrink: 0; }
+  .price-card.featured .price-features li { color: rgba(255,255,255,0.7); }
+
+  .price-btn {
+    display: block; text-align: center; width: 100%;
+    padding: .8rem;
+    border-radius: 10px;
+    font-size: .9rem; font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--gri-acik);
+    color: var(--siyah);
+    background: var(--beyaz);
+    transition: background .2s, color .2s;
+  }
+  .price-btn:hover { background: var(--siyah); color: white; border-color: var(--siyah); }
+  .price-card.featured .price-btn {
+    background: var(--turuncu);
+    color: white;
+    border-color: var(--turuncu);
+  }
+  .price-card.featured .price-btn:hover { background: var(--turuncu-koyu); }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    background: var(--turuncu);
+    color: white;
+    text-align: center;
+  }
+  .cta-section h2 { color: white; }
+  .cta-section .section-sub { color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto 2rem; }
+
+  .cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-white {
+    background: white;
+    color: var(--turuncu);
+    padding: .9rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform .15s;
+    display: inline-flex; align-items: center; gap: .5rem;
+  }
+  .btn-white:hover { transform: translateY(-1px); }
+
+  .btn-outline-white {
+    border: 2px solid rgba(255,255,255,0.4);
+    color: white;
+    padding: .9rem 1.8rem;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: .95rem;
+    text-decoration: none;
+    transition: border-color .2s, background .2s;
+    display: inline-flex; align-items: center;
+  }
+  .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--siyah);
+    color: rgba(255,255,255,0.4);
+    padding: 3rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: .85rem;
+  }
+
+  footer a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color .2s; }
+  footer a:hover { color: white; }
+
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    color: white;
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--turuncu); }
+
+  /* ─── ANİMASYONLAR ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .why-grid { grid-template-columns: 1fr; }
+    .why-text { padding-right: 0; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
 </head>
 <body>
-    <div class="hero">
-        <div class="logo">🏗️ Yakında Usta</div>
-        <h1>Aradığınız Usta Çok Yakında Burada!</h1>
-        <p>Boyacıdan elektrikçiye, tesisatçıdan tamirciye<br>tüm ustalar cebinize geliyor.</p>
-        <a href="#" class="btn">Uygulamayı İndir (Yakında)</a>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
     </div>
+    Yakında<span>Usta</span>
+  </a>
+  <div class="nav-links">
+    <a href="#kategoriler">Hizmetler</a>
+    <a href="#nasil">Nasıl Çalışır</a>
+    <a href="#fiyatlar">Fiyatlar</a>
+    <a href="#iletisim" class="nav-cta">Usta Ol</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Giresun'un ilk usta platformu</div>
+    <h1>
+      Güvenilir usta bulmak<br>
+      artık <em>çok kolay</em>
+    </h1>
+    <p class="hero-sub">
+      Temizlik, tadilat, nakliye, boya ve daha fazlası için
+      onaylı, puanlı ustalar. Anlık rezervasyon, güvenceli ödeme.
+    </p>
+    <div class="hero-actions">
+      <a href="#kategoriler" class="btn-primary">
+        Usta Bul
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#iletisim" class="btn-secondary">
+        Usta Olarak Kaydol
+      </a>
+    </div>
+    <div class="hero-stats fade-up">
+      <div>
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Onaylı usta</div>
+      </div>
+      <div>
+        <div class="stat-num">5</div>
+        <div class="stat-label">Hizmet kategorisi</div>
+      </div>
+      <div>
+        <div class="stat-num">4.8★</div>
+        <div class="stat-label">Ortalama puan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KATEGORİLER -->
+<section id="kategoriler">
+  <div class="section-tag">Hizmetler</div>
+  <h2>Her işte doğru usta</h2>
+  <p class="section-sub">5 ana kategoride yüzlerce hizmet. Tek uygulama, tüm ihtiyaçlar.</p>
+
+  <div class="categories-grid">
+    <a href="#iletisim" class="cat-card fade-up">
+      <div class="cat-icon" style="background:rgba(16,185,129,0.1);">🧹</div>
+      <div class="cat-name">Temizlik</div>
+      <div class="cat-desc">Ev, ofis, apartman merdiveni, cam silme, genel temizlik</div>
+      <span class="cat-kom">%12 komisyon</span>
+    </a>
+    <a href="#iletisim" class="cat-card fade-up" style="transition-delay:.07s">
+      <div class="cat-icon" style="background:rgba(59,130,246,0.1);">⚡</div>
+      <div class="cat-name">Elektrik & Su</div>
+      <div class="cat-desc">Tesisatçı, elektrikçi, arıza müdahale, montaj işleri</div>
+      <span class="cat-kom">%10 komisyon</span>
+    </a>
+    <a href="#iletisim" class="cat-card fade-up" style="transition-delay:.14s">
+      <div class="cat-icon" style="background:rgba(245,158,11,0.1);">🚛</div>
+      <div class="cat-name">Nakliye</div>
+      <div class="cat-desc">Ev taşıma, ofis, eşya nakli, parça taşıma</div>
+      <span class="cat-kom">%13 komisyon</span>
+    </a>
+    <a href="#iletisim" class="cat-card fade-up" style="transition-delay:.21s">
+      <div class="cat-icon" style="background:rgba(239,68,68,0.1);">🎨</div>
+      <div class="cat-name">Boya & Badana</div>
+      <div class="cat-desc">İç cephe, dış cephe, dekoratif boyama</div>
+      <span class="cat-kom">%10 komisyon</span>
+    </a>
+    <a href="#iletisim" class="cat-card fade-up" style="transition-delay:.28s">
+      <div class="cat-icon" style="background:rgba(139,92,246,0.1);">🔧</div>
+      <div class="cat-name">Diğer Ustalık</div>
+      <div class="cat-desc">Marangoz, demirci, seramik, çatı, genel tadilat</div>
+      <span class="cat-kom">%10 komisyon</span>
+    </a>
+  </div>
+</section>
+
+<!-- NASIL ÇALIŞIR -->
+<section class="how-section" id="nasil">
+  <div class="section-tag">Nasıl Çalışır</div>
+  <h2>4 adımda işin tamam</h2>
+  <p class="section-sub">Kayıt olmadan bile usta profillerini görebilirsin. Rezervasyon için 1 dakika yeter.</p>
+
+  <div class="steps">
+    <div class="step fade-up">
+      <div class="step-icon">🔍</div>
+      <h3>Kategorini seç</h3>
+      <p>İhtiyacın olan hizmeti seç. Temizlik, tadilat, nakliye veya daha fazlası.</p>
+    </div>
+    <div class="step fade-up" style="transition-delay:.08s">
+      <div class="step-icon">👤</div>
+      <h3>Usta seç</h3>
+      <p>Profil, puan ve referanslara bak. Fiyat teklifini gör. En iyisini seç.</p>
+    </div>
+    <div class="step fade-up" style="transition-delay:.16s">
+      <div class="step-icon">📅</div>
+      <h3>Rezervasyon yap</h3>
+      <p>Tarih, saat ve adresini gir. Usta onaylasın, hazır.</p>
+    </div>
+    <div class="step fade-up" style="transition-delay:.24s">
+      <div class="step-icon">✅</div>
+      <h3>İşi onayla, öde</h3>
+      <p>İş bittikten sonra güvenceli ödeme yap, yorum bırak.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NEDEN BİZ -->
+<section>
+  <div class="why-grid">
+    <div class="why-text fade-up">
+      <div class="section-tag">Neden YakındaUsta</div>
+      <h2>Tanıdık üzerinden değil,<br>güvence ile</h2>
+      <p class="section-sub">Giresun'da iş bulmak artık tanıdık sormayı gerektirmiyor.</p>
+
+      <ul class="features-list">
+        <li>
+          <div class="feat-icon">🛡️</div>
+          <div>
+            <div class="feat-title">Onaylı ustalar</div>
+            <div class="feat-sub">Her usta kimlik doğrulamasından geçer. Sigortalı usta rozeti ayrıca belirtilir.</div>
+          </div>
+        </li>
+        <li>
+          <div class="feat-icon">💳</div>
+          <div>
+            <div class="feat-title">Güvenceli ödeme</div>
+            <div class="feat-sub">Para sadece iş tamamlandıktan sonra ustaya geçer. İş yanlış giderse iade garantisi.</div>
+          </div>
+        </li>
+        <li>
+          <div class="feat-icon">⭐</div>
+          <div>
+            <div class="feat-title">Gerçek yorumlar</div>
+            <div class="feat-sub">Sadece işi tamamlayan müşteriler yorum bırakabilir. Sahte yorum yok.</div>
+          </div>
+        </li>
+        <li>
+          <div class="feat-icon">📸</div>
+          <div>
+            <div class="feat-title">Fotoğraflı iş takibi</div>
+            <div class="feat-sub">Usta iş öncesi ve sonrasını fotoğrafla belgeler. Şeffaf, kanıtlı.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="why-visual fade-up" style="transition-delay:.15s">
+      <div class="mock-header">
+        <div class="mock-avatar">MA</div>
+        <div>
+          <div class="mock-name">Mehmet Usta</div>
+          <div class="mock-role">Elektrik & Tesisatçı</div>
+        </div>
+        <div class="mock-badge">Müsait</div>
+      </div>
+      <div class="mock-rating">
+        <span class="stars">★★★★★</span>
+        <span>4.9</span>
+        <span style="font-weight:300;color:var(--gri);margin-left:.2rem">(84 iş)</span>
+      </div>
+      <div class="mock-cats">
+        <span class="mock-cat">Elektrik</span>
+        <span class="mock-cat">Tesisat</span>
+        <span class="mock-cat">Arıza</span>
+        <span class="mock-cat">Montaj</span>
+      </div>
+      <p style="font-size:.84rem;color:var(--gri);line-height:1.6;margin-bottom:1.2rem">
+        15 yıllık deneyim. Giresun merkez ve ilçelerde hizmet. Aynı gün müdahale.
+      </p>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;padding:.8rem;background:var(--beyaz);border-radius:8px;">
+        <span style="font-size:.82rem;color:var(--gri)">Başlangıç fiyatı</span>
+        <span style="font-size:1rem;font-weight:700;color:var(--siyah)">₺250</span>
+      </div>
+      <button class="mock-btn">Rezervasyon Yap</button>
+    </div>
+  </div>
+</section>
+
+<!-- FİYATLAR -->
+<section id="fiyatlar" style="background:#F0EDE8;">
+  <div class="section-tag">Usta Abonelik Planları</div>
+  <h2>Ustalar için şeffaf fiyat</h2>
+  <p class="section-sub">Her planla müşterilere ulaş. Komisyon sadece iş gerçekleşince alınır.</p>
+
+  <div class="pricing-grid">
+    <div class="price-card fade-up">
+      <div class="price-name">Temel</div>
+      <div class="price-amount">₺299</div>
+      <div class="price-period">/ ay + %12 komisyon</div>
+      <ul class="price-features">
+        <li>Aylık 10 iş kotası</li>
+        <li>Profil sayfası</li>
+        <li>Müşteri mesajlaşma</li>
+        <li>Temel istatistikler</li>
+      </ul>
+      <a href="#iletisim" class="price-btn">Başla</a>
+    </div>
+
+    <div class="price-card featured fade-up" style="transition-delay:.1s">
+      <div class="price-badge">En Popüler</div>
+      <div class="price-name">Pro</div>
+      <div class="price-amount">₺599</div>
+      <div class="price-period">/ ay + %10 komisyon</div>
+      <ul class="price-features">
+        <li>Sınırsız iş</li>
+        <li>Öne çıkan profil</li>
+        <li>Arama üstü görünüm</li>
+        <li>Detaylı analitik</li>
+        <li>Öncelikli destek</li>
+      </ul>
+      <a href="#iletisim" class="price-btn">Pro'ya Geç</a>
+    </div>
+
+    <div class="price-card fade-up" style="transition-delay:.2s">
+      <div class="price-name">Kurumsal</div>
+      <div class="price-amount">₺999</div>
+      <div class="price-period">/ ay + %8 komisyon</div>
+      <ul class="price-features">
+        <li>Birden fazla çalışan</li>
+        <li>Şirket profili</li>
+        <li>B2B sözleşme desteği</li>
+        <li>Özel müşteri yöneticisi</li>
+        <li>API erişimi</li>
+      </ul>
+      <a href="#iletisim" class="price-btn">İletişime Geç</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="iletisim">
+  <div class="section-tag" style="color:rgba(255,255,255,0.6)">Hemen Başla</div>
+  <h2>Giresun'un ustası ol</h2>
+  <p class="section-sub">
+    Uygulama yakında yayında. Şimdi kayıt ol, ilk usta listesinde yer al.
+    Erken kayıt — 3 ay ücretsiz Pro plan.
+  </p>
+  <div class="cta-btns">
+    <a href="mailto:info@yakindausta.com.tr" class="btn-white">
+      📧 Usta Olarak Kaydol
+    </a>
+    <a href="https://wa.me/905XXXXXXXXX" class="btn-outline-white">
+      WhatsApp ile Ulaş
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Yakında<span>Usta</span></a>
+  <div>Giresun'un usta platformu &nbsp;·&nbsp; yakindausta.com.tr</div>
+  <div style="display:flex;gap:1.5rem;">
+    <a href="mailto:info@yakindausta.com.tr">E-posta</a>
+    <a href="#">Gizlilik</a>
+    <a href="#">KVKK</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
