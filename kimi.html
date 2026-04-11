@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yakında Usta | Geleceğin Usta Platformu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f0ff;
+            --neon-purple: #b829dd;
+            --dark-bg: #0a0a0f;
+            --card-bg: rgba(255,255,255,0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .font-space {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Animated Background */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0,240,255,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(184,41,221,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(0,240,255,0.1) 0%, transparent 40%);
+            animation: bgPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Grid Pattern */
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-blue);
+            box-shadow: 0 20px 40px rgba(0,240,255,0.2);
+        }
+
+        /* Neon Text */
+        .neon-text {
+            background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Magnetic Button */
+        .magnetic-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .magnetic-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .magnetic-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .float-delay {
+            animation: float 6s ease-in-out infinite 2s;
+        }
+
+        /* Scroll Indicator */
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--neon-blue), transparent);
+            animation: scrollPulse 2s infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 1; transform: scaleY(1); }
+            50% { opacity: 0.5; transform: scaleY(0.5); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--neon-blue), var(--neon-purple));
+            border-radius: 4px;
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-purple);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-blue);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(70px, 9999px, 96px, 0); }
+            40% { clip: rect(8px, 9999px, 35px, 0); }
+            60% { clip: rect(62px, 9999px, 78px, 0); }
+            80% { clip: rect(19px, 9999px, 89px, 0); }
+            100% { clip: rect(54px, 9999px, 17px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 99px, 0); }
+            20% { clip: rect(12px, 9999px, 43px, 0); }
+            40% { clip: rect(88px, 9999px, 11px, 0); }
+            60% { clip: rect(33px, 9999px, 66px, 0); }
+            80% { clip: rect(77px, 9999px, 22px, 0); }
+            100% { clip: rect(44px, 9999px, 55px, 0); }
+        }
+
+        /* Price Card Glow */
+        .price-popular {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-popular::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-blue));
+            border-radius: inherit;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* Cursor Effect */
+        .cursor-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--neon-blue);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+
+    <!-- Background Effects -->
+    <div class="gradient-bg"></div>
+    <div class="grid-pattern"></div>
+    <canvas id="particles"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center">
+                        <i data-lucide="wrench" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="font-space font-bold text-xl tracking-tight">
+                        Yakında<span class="neon-text">Usta</span>
+                    </span>
+                </div>
+
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#services" class="text-sm text-gray-400 hover:text-white transition-colors relative group">
+                        Hizmetler
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#how" class="text-sm text-gray-400 hover:text-white transition-colors relative group">
+                        Nasıl Çalışır
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#pricing" class="text-sm text-gray-400 hover:text-white transition-colors relative group">
+                        Fiyatlar
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span>
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button class="hidden md:block text-sm text-gray-400 hover:text-white transition-colors">Giriş</button>
+                    <button class="magnetic-btn px-6 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-medium hover:shadow-lg hover:shadow-cyan-500/25 transition-all">
+                        Hemen Başla
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Content -->
+            <div class="space-y-8 z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-cyan-400 border border-cyan-400/20">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                    Giresun'un İlk Akıllı Usta Platformu
+                </div>
+
+                <h1 class="font-space text-5xl md:text-7xl font-bold leading-tight">
+                    <span class="glitch" data-text="Geleceğin">Geleceğin</span><br>
+                    <span class="neon-text">Ustalığı</span><br>
+                    <span class="text-gray-400">Burada</span>
+                </h1>
+
+                <p class="text-lg text-gray-400 max-w-lg leading-relaxed">
+                    Yapay zeka destekli eşleştirme, blockchain tabanlı güvenli ödeme ve artırılmış gerçeklik ile ustaları deneyimle. 
+                    Tanıdık aramaya son.
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+                    <button class="magnetic-btn group px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:shadow-2xl hover:shadow-cyan-500/50 transition-all flex items-center gap-2">
+                        <span>Usta Bul</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <button class="px-8 py-4 rounded-full glass text-white font-semibold hover:bg-white/10 transition-all flex items-center gap-2">
+                        <i data-lucide="play" class="w-5 h-5"></i>
+                        <span>Tanıtım İzle</span>
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-8 pt-4">
+                    <div>
+                        <div class="text-2xl font-bold neon-text">500+</div>
+                        <div class="text-sm text-gray-500">Onaylı Usta</div>
+                    </div>
+                    <div class="w-px h-10 bg-white/10"></div>
+                    <div>
+                        <div class="text-2xl font-bold neon-text">10k+</div>
+                        <div class="text-sm text-gray-500">Tamamlanan İş</div>
+                    </div>
+                    <div class="w-px h-10 bg-white/10"></div>
+                    <div>
+                        <div class="text-2xl font-bold neon-text">4.9</div>
+                        <div class="text-sm text-gray-500">Ortalama Puan</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Visual -->
+            <div class="relative h-[600px] hidden lg:block">
+                <!-- Floating Cards -->
+                <div class="absolute top-10 right-10 w-64 glass-card rounded-2xl p-4 float">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center">
+                            <i data-lucide="check" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Ahmet Usta</div>
+                            <div class="text-xs text-gray-400">Elektrikçi • 4.9★</div>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-400">"15 dakikada kapıdaydım"</div>
+                </div>
+
+                <div class="absolute top-40 left-0 w-56 glass-card rounded-2xl p-4 float-delay">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i>
+                        <span class="text-sm text-gray-400">Giresun Merkez</span>
+                    </div>
+                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div class="h-full w-3/4 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"></div>
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1">3 ustaya yakınında</div>
+                </div>
+
+                <div class="absolute bottom-20 right-0 w-72 glass-card rounded-2xl p-4 float">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-sm font-medium">Güvenli Ödeme</span>
+                        <i data-lucide="shield-check" class="w-5 h-5 text-green-400"></i>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-purple-500 border-2 border-black"></div>
+                            <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-black"></div>
+                            <div class="w-8 h-8 rounded-full bg-cyan-500 border-2 border-black"></div>
+                        </div>
+                        <span class="text-xs text-gray-400">+2.5k güvenli işlem</span>
+                    </div>
+                </div>
+
+                <!-- Central Element -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80">
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 blur-3xl animate-pulse"></div>
+                    <div class="relative w-full h-full rounded-full border border-white/10 flex items-center justify-center">
+                        <div class="absolute inset-4 rounded-full border border-cyan-500/30 animate-spin" style="animation-duration: 10s;"></div>
+                        <div class="absolute inset-8 rounded-full border border-purple-500/30 animate-spin" style="animation-duration: 15s; animation-direction: reverse;"></div>
+                        <div class="w-32 h-32 rounded-2xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center shadow-2xl shadow-cyan-500/50">
+                            <i data-lucide="smartphone" class="w-16 h-16 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <span class="text-xs text-gray-500 uppercase tracking-widest">Keşfet</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <span class="text-cyan-400 text-sm font-medium tracking-widest uppercase mb-4 block">Hizmetler</span>
+                <h2 class="font-space text-4xl md:text-6xl font-bold mb-6">
+                    Her İşte <span class="neon-text">Uzman</span> Usta
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Kategorilere göre filtrele, puanları gör, anında rezervasyon yap. 
+                    Hepsi tek bir platformda.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service Card 1 -->
+                <div class="service-card glass-card rounded-3xl p-8 group cursor-pointer">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="sparkles" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Temizlik</h3>
+                    <p class="text-gray-400 mb-6">Ev, ofis, apartman merdiveni, cam silme, derinlemesine temizlik</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-cyan-400 font-semibold">%12 Komisyon</span>
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 text-cyan-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="service-card glass-card rounded-3xl p-8 group cursor-pointer">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400 to-pink-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="zap" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Elektrik & Su</h3>
+                    <p class="text-gray-400 mb-6">Tesisatçı, elektrikçi, arıza müdahale, montaj işleri</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-purple-400 font-semibold">%10 Komisyon</span>
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 text-purple-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="service-card glass-card rounded-3xl p-8 group cursor-pointer">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="truck" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Nakliye</h3>
+                    <p class="text-gray-400 mb-6">Ev taşıma, ofis, eşya nakli, parça taşıma hizmetleri</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-orange-400 font-semibold">%13 Komisyon</span>
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-orange-500/20 transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 text-orange-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="service-card glass-card rounded-3xl p-8 group cursor-pointer">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="paintbrush" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Boya & Badana</h3>
+                    <p class="text-gray-400 mb-6">İç cephe, dış cephe, dekoratif boyama, mantolama</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-green-400 font-semibold">%10 Komisyon</span>
+                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5 text-green-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="service-card glass-card rounded-3xl p-8 group cursor-pointer md:col-span-2 lg:col-span-2">
+                    <div class="flex flex-col md:flex-row md:items-center gap-6">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-400 to-gray-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                            <i data-lucide="hammer" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">Diğer Ustalık</h3>
+                            <p class="text-gray-400">Marangoz, demirci, seramik, çatı, genel tadilat ve daha fazlası. Binlerce farklı kategoride uzman ustalar.</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-gray-400 font-semibold">%10 Komisyon</span>
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-gray-500/20 transition-colors">
+                                <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how" class="py-32 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <span class="text-cyan-400 text-sm font-medium tracking-widest uppercase mb-4 block">Nasıl Çalışır</span>
+                <h2 class="font-space text-4xl md:text-6xl font-bold mb-6">
+                    4 Adımda <span class="neon-text">İşin Tamam</span>
+                </h2>
+            </div>
+
+            <div class="relative">
+                <!-- Connection Line -->
+                <div class="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-cyan-500/20 hidden lg:block"></div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Step 1 -->
+                    <div class="relative group">
+                        <div class="glass-card rounded-3xl p-8 text-center relative z-10 h-full">
+                            <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 border border-cyan-500/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="search" class="w-10 h-10 text-cyan-400"></i>
+                            </div>
+                            <div class="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-cyan-500 flex items-center justify-center font-bold text-sm">1</div>
+                            <h3 class="text-xl font-bold mb-3">Kategorini Seç</h3>
+                            <p class="text-gray-400 text-sm">İhtiyacın olan hizmeti seç. Temizlik, tadilat, nakliye veya daha fazlası.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative group lg:mt-12">
+                        <div class="glass-card rounded-3xl p-8 text-center relative z-10 h-full">
+                            <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 border border-purple-500/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="user-check" class="w-10 h-10 text-purple-400"></i>
+                            </div>
+                            <div class="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center font-bold text-sm">2</div>
+                            <h3 class="text-xl font-bold mb-3">Usta Seç</h3>
+                            <p class="text-gray-400 text-sm">Profil, puan ve referanslara bak. Fiyat teklifini gör. En iyisini seç.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative group">
+                        <div class="glass-card rounded-3xl p-8 text-center relative z-10 h-full">
+                            <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-pink-500/20 to-pink-500/5 border border-pink-500/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="calendar" class="w-10 h-10 text-pink-400"></i>
+                            </div>
+                            <div class="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center font-bold text-sm">3</div>
+                            <h3 class="text-xl font-bold mb-3">Rezervasyon Yap</h3>
+                            <p class="text-gray-400 text-sm">Tarih, saat ve adresini gir. Usta onaylasın, hazır.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative group lg:mt-12">
+                        <div class="glass-card rounded-3xl p-8 text-center relative z-10 h-full">
+                            <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-green-500/20 to-green-500/5 border border-green-500/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="check-circle" class="w-10 h-10 text-green-400"></i>
+                            </div>
+                            <div class="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center font-bold text-sm">4</div>
+                            <h3 class="text-xl font-bold mb-3">İşi Onayla</h3>
+                            <p class="text-gray-400 text-sm">İş bittikten sonra güvenceli ödeme yap, yorum bırak.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="text-cyan-400 text-sm font-medium tracking-widest uppercase mb-4 block">Neden Biz</span>
+                    <h2 class="font-space text-4xl md:text-5xl font-bold mb-8">
+                        Tanıdık Üzerinden Değil,<br>
+                        <span class="neon-text">Güvence İle</span>
+                    </h2>
+                    <p class="text-gray-400 mb-12 text-lg">
+                        Giresun'da iş bulmak artık tanıdık sormayı gerektirmiyor. 
+                        Teknoloji ile ustaları güvenilir hale getiriyoruz.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center shrink-0 group-hover:bg-cyan-500/20 transition-colors">
+                                <i data-lucide="shield" class="w-6 h-6 text-cyan-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">Onaylı Ustalar</h4>
+                                <p class="text-gray-400 text-sm">Her usta kimlik doğrulamasından geçer. Sigortalı usta rozeti ayrıca belirtilir.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0 group-hover:bg-purple-500/20 transition-colors">
+                                <i data-lucide="credit-card" class="w-6 h-6 text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">Güvenceli Ödeme</h4>
+                                <p class="text-gray-400 text-sm">Para sadece iş tamamlandıktan sonra ustaya geçer. İş yanlış giderse iade garantisi.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center shrink-0 group-hover:bg-pink-500/20 transition-colors">
+                                <i data-lucide="star" class="w-6 h-6 text-pink-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">Gerçek Yorumlar</h4>
+                                <p class="text-gray-400 text-sm">Sadece işi tamamlayan müşteriler yorum bırakabilir. Sahte yorum yok.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 group">
+                            <div class="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/30 flex items-center justify-center shrink-0 group-hover:bg-green-500/20 transition-colors">
+                                <i data-lucide="camera" class="w-6 h-6 text-green-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">Fotoğraflı İş Takibi</h4>
+                                <p class="text-gray-400 text-sm">Usta iş öncesi ve sonrasını fotoğrafla belgeler. Şeffaf, kanıtlı.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
+                    <div class="relative glass-card rounded-3xl p-8">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600"></div>
+                            <div>
+                                <div class="font-semibold">Mehmet Usta</div>
+                                <div class="text-sm text-gray-400">Elektrikçi • 15 yıl deneyim</div>
+                            </div>
+                            <div class="ml-auto flex items-center gap-1 text-yellow-400">
+                                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                                <span class="font-bold">4.9</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center p-3 rounded-xl bg-white/5">
+                                <div class="text-xl font-bold neon-text">156</div>
+                                <div class="text-xs text-gray-500">İş</div>
+                            </div>
+                            <div class="text-center p-3 rounded-xl bg-white/5">
+                                <div class="text-xl font-bold neon-text">%98</div>
+                                <div class="text-xs text-gray-500">Memnuniyet</div>
+                            </div>
+                            <div class="text-center p-3 rounded-xl bg-white/5">
+                                <div class="text-xl font-bold neon-text">15dk</div>
+                                <div class="text-xs text-gray-500">Ort. Yanıt</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-2 text-sm text-gray-400">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i>
+                                Kimlik Doğrulandı
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-gray-400">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i>
+                                Sigortalı
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-gray-400">
+                                <i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i>
+                                KVKK Uyumlu
+                            </div>
+                        </div>
+
+                        <button class="w-full mt-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all">
+                            Profili Gör
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <span class="text-cyan-400 text-sm font-medium tracking-widest uppercase mb-4 block">Fiyatlandırma</span>
+                <h2 class="font-space text-4xl md:text-6xl font-bold mb-6">
+                    Ustalar İçin <span class="neon-text">Şeffaf Fiyat</span>
+                </h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Her planla müşterilere ulaş. Komisyon sadece iş gerçekleşince alınır.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Basic Plan -->
+                <div class="glass-card rounded-3xl p-8 relative group hover:scale-105 transition-transform duration-500">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-2">Temel</h3>
+                        <p class="text-gray-400 text-sm">Başlangıç için ideal</p>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold">₺299</span>
+                        <span class="text-gray-400">/ay</span>
+                        <div class="text-sm text-cyan-400 mt-2">+ %12 komisyon</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Aylık 10 iş kotası
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Profil sayfası
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Müşteri mesajlaşma
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Temel istatistikler
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl border border-white/20 text-white font-semibold hover:bg-white/10 transition-all">
+                        Başla
+                    </button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="price-popular glass-card rounded-3xl p-8 relative group hover:scale-105 transition-transform duration-500">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-xs font-bold">
+                        En Popüler
+                    </div>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-2">Pro</h3>
+                        <p class="text-gray-400 text-sm">Profesyoneller için</p>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold neon-text">₺599</span>
+                        <span class="text-gray-400">/ay</span>
+                        <div class="text-sm text-purple-400 mt-2">+ %10 komisyon</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Sınırsız iş
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Öne çıkan profil
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Arama üstü görünüm
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Detaylı analitik
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Öncelikli destek
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all">
+                        Pro'ya Geç
+                    </button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="glass-card rounded-3xl p-8 relative group hover:scale-105 transition-transform duration-500">
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-2">Kurumsal</h3>
+                        <p class="text-gray-400 text-sm">Şirketler için</p>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold">₺999</span>
+                        <span class="text-gray-400">/ay</span>
+                        <div class="text-sm text-green-400 mt-2">+ %8 komisyon</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Birden fazla çalışan
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Şirket profili
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            B2B sözleşme desteği
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            Özel müşteri yöneticisi
+                        </li>
+                        <li class="flex items-center gap-3 text-sm">
+                            <i data-lucide="check" class="w-5 h-5 text-cyan-400"></i>
+                            API erişimi
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl border border-white/20 text-white font-semibold hover:bg-white/10 transition-all">
+                        İletişime Geç
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-500/10"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="font-space text-4xl md:text-6xl font-bold mb-6">
+                Giresun'un <span class="neon-text">Ustası</span> Ol
+            </h2>
+            <p class="text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
+                Uygulama yakında yayında. Şimdi kayıt ol, ilk usta listesinde yer al. 
+                Erken kayıt — 3 ay ücretsiz Pro plan.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <input type="email" placeholder="E-posta adresiniz" class="px-6 py-4 rounded-full bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 transition-colors min-w-[300px]">
+                <button class="magnetic-btn px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-semibold hover:shadow-2xl hover:shadow-cyan-500/50 transition-all whitespace-nowrap">
+                    Erken Erişim Al
+                </button>
+            </div>
+
+            <div class="flex items-center justify-center gap-8 text-sm text-gray-500">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-cyan-400"></i>
+                    Kredi kartı gerekmez
+                </div>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-cyan-400"></i>
+                    İstediğin zaman iptal et
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center">
+                            <i data-lucide="wrench" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="font-space font-bold text-xl">
+                            Yakında<span class="neon-text">Usta</span>
+                        </span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6">
+                        Giresun'un ilk akıllı usta platformu. Güvenilir ustalar, tek platformda.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-cyan-500/20 transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5 text-gray-400"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-cyan-500/20 transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5 text-gray-400"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-cyan-500/20 transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5 text-gray-400"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-6">Hizmetler</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Temizlik</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Elektrik & Su</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Nakliye</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Boya & Badana</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Tadilat</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-6">Şirket</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Hakkımızda</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Kariyer</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Basın</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">İletişim</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-6">Destek</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Yardım Merkezi</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Güvenlik</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Gizlilik Politikası</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">KVKK</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500">© 2026 Yakında Usta. Tüm hakları saklıdır.</p>
+                <div class="flex items-center gap-6 text-sm text-gray-500">
+                    <a href="#" class="hover:text-white transition-colors">Gizlilik</a>
+                    <a href="#" class="hover:text-white transition-colors">Kullanım Şartları</a>
+                    <a href="#" class="hover:text-white transition-colors">Çerezler</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Animations
+        gsap.from("nav", {
+            y: -100,
+            opacity: 0,
+            duration: 1,
+            ease: "power4.out"
+        });
+
+        gsap.from("h1", {
+            y: 100,
+            opacity: 0,
+            duration: 1.2,
+            delay: 0.2,
+            ease: "power4.out"
+        });
+
+        gsap.from(".service-card", {
+            scrollTrigger: {
+                trigger: "#services",
+                start: "top 80%",
+            },
+            y: 100,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power4.out"
+        });
+
+        gsap.from("#how .glass-card", {
+            scrollTrigger: {
+                trigger: "#how",
+                start: "top 80%",
+            },
+            scale: 0.8,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "back.out(1.7)"
+        });
+
+        // Particle System
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 50;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(0, 240, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // Connect particles
+            particles.forEach((a, index) => {
+                particles.slice(index + 1).forEach(b => {
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.1 * (1 - distance / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Custom Cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Magnetic Buttons
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.gradient-bg');
+            parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>
