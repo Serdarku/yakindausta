@@ -1,50 +1,35 @@
-import pkg from 'whatsapp-web.js';
-const { Client, LocalAuth } = pkg;
-import qrcode from 'qrcode-terminal';
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import dotenv from "dotenv";
+import express from 'express';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
-// Gemini Kurulumu
+const app = express();
+app.use(cors());
+app.use(express.json());
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-const client = new Client({
-    authStrategy: new LocalAuth(),
-    puppeteer: {
-        args: ['--no-sandbox', '--disable-setuid-sandbox'] // Render için gerekli
-    }
+app.post('/chat', async (req, res) => {
+  try {
+    const { message } = req.body;
+    
+    const prompt = `Sen YakindaUsta platformunun asistanısın. Kullanıcının şu mesajını analiz et: "${message}". 
+    Eğer bir usta/hizmet arıyorsa şu kategorilerden birine yönlendir: Tesisat, Elektrik, Temizlik, Nakliye, Boya. 
+    Kısa, samimi ve Giresun şivesine yakın (isteğe bağlı) yardımcı bir cevap ver.`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    res.json({ reply: response.text() });
+  } catch (error) {
+    console.error("AI Hatası:", error);
+    res.status(500).json({ reply: "Bir hata oluştu, usta yolda ama sistem takıldı! :)" });
+  }
 });
 
-// QR Kod Oluşturma
-client.on('qr', (qr) => {
-    console.log('BURAYI TELEFONUNDAN OKUT:');
-    qrcode.generate(qr, { small: true });
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Sunucu ${PORT} portunda eski düzeninde çalışıyor! 🚀`);
 });
-
-client.on('ready', () => {
-    console.log('🚀 WhatsApp Botu Hazır, Giresun emrinde!');
-});
-
-// Mesaj Gelince Çalışan Kısım
-client.on('message', async (msg) => {
-    // Sadece kişisel mesajlara cevap ver (Grupları karıştırma)
-    const chat = await msg.getChat();
-    if (chat.isGroup) return;
-
-    try {
-        const prompt = `Sen YakindaUsta botusun. Kullanıcı: "${msg.body}". 
-        Kategoriler: Tesisat, Elektrik, Temizlik, Nakliye, Boya. 
-        Kısa ve samimi bir cevap ver, kategoriyi belirt.`;
-
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        msg.reply(response.text());
-        
-    } catch (error) {
-        console.error('Hata oluştu:', error);
-    }
-});
-
-client.initialize();
