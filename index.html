@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>YakındaUsta — Giresun'da Usta Bul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0D0D12;
+  --paper:#F7F4EE;
+  --wa:#25D366;
+  --wa-d:#1DAA54;
+  --amber:#F5A623;
+  --muted:#6B6878;
+  --border:rgba(13,13,18,.08);
+  --card:#FFFFFF;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:white;overflow-x:hidden;max-width:480px;margin:0 auto;min-height:100vh}
+
+/* NAV */
+nav{
+  padding:1rem 1.25rem;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:white;text-decoration:none}
+.logo em{color:var(--wa);font-style:normal}
+.nav-tag{font-size:.72rem;background:rgba(37,211,102,.15);color:var(--wa);padding:.3rem .7rem;border-radius:99px;font-weight:600}
+
+/* HERO */
+.hero{padding:2rem 1.25rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:300px;height:300px;background:rgba(37,211,102,.07);border-radius:50%;filter:blur(60px);top:-60px;left:50%;transform:translateX(-50%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:.35rem .85rem;font-size:.75rem;color:rgba(255,255,255,.55);margin-bottom:1.25rem}
+.hero-tag::before{content:'📍'}
+h1{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;line-height:1.1;letter-spacing:-.02em;margin-bottom:.65rem;position:relative;z-index:1}
+h1 em{color:var(--wa);font-style:normal}
+.hero-sub{font-size:.9rem;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:0;font-weight:300;position:relative;z-index:1}
+
+/* LIVE BAR */
+.live-bar{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);margin:1.25rem 1.25rem 0;border-radius:12px;padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between}
+.live-l{display:flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:600;color:var(--wa)}
+.live-dot{width:7px;height:7px;background:var(--wa);border-radius:50%;animation:blink 1.4s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.live-r{font-size:.75rem;color:rgba(255,255,255,.4)}
+
+/* AI KUTU */
+.ai-box{margin:1.25rem 1.25rem 0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.25rem;position:relative;overflow:hidden}
+.ai-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--wa),transparent);opacity:.4}
+.ai-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.65rem;display:flex;align-items:center;gap:.4rem}
+.ai-label::before{content:'';width:6px;height:6px;background:var(--wa);border-radius:50%;display:inline-block}
+
+.ai-input-wrap{position:relative}
+textarea{
+  width:100%;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  padding:1rem 1rem 2.8rem 1rem;
+  color:white;
+  font-size:.95rem;
+  font-family:'DM Sans',sans-serif;
+  resize:none;
+  outline:none;
+  line-height:1.55;
+  transition:border-color .2s;
+  min-height:100px;
+}
+textarea::placeholder{color:rgba(255,255,255,.25)}
+textarea:focus{border-color:rgba(37,211,102,.4)}
+
+.char-count{position:absolute;bottom:.75rem;right:.9rem;font-size:.7rem;color:rgba(255,255,255,.25)}
+
+.ai-btn{
+  width:100%;margin-top:.85rem;
+  background:var(--wa);color:white;
+  border:none;border-radius:14px;
+  padding:1rem;
+  font-size:1rem;font-weight:700;
+  font-family:'DM Sans',sans-serif;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  transition:background .2s,transform .15s;
+  box-shadow:0 6px 20px rgba(37,211,102,.3);
+}
+.ai-btn:active{transform:scale(.98)}
+.ai-btn:disabled{background:rgba(255,255,255,.1);box-shadow:none;cursor:not-allowed}
+.ai-btn.loading{background:rgba(37,211,102,.6)}
+
+/* SPINNER */
+.spinner{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* SONUÇ */
+.result-box{margin:1rem 1.25rem 0;display:none}
+.result-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:1.25rem;position:relative;overflow:hidden}
+.result-card.show{border-color:rgba(37,211,102,.25)}
+.result-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:.75rem}
+.result-kategori{display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem}
+.kategori-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.2);border-radius:8px;padding:.4rem .85rem;font-size:.88rem;font-weight:600;color:var(--wa)}
+.result-ai-yorum{font-size:.88rem;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:1.1rem;font-style:italic}
+.result-wa-btn{
+  display:flex;align-items:center;justify-content:center;gap:.55rem;
+  background:var(--wa);color:white;
+  padding:.95rem;border-radius:12px;
+  font-size:.95rem;font-weight:700;text-decoration:none;
+  box-shadow:0 4px 16px rgba(37,211,102,.3);
+  transition:background .2s;border:none;cursor:pointer;font-family:inherit;width:100%;
+}
+.result-wa-btn:active{background:var(--wa-d)}
+
+/* KATEGORİ SEÇ */
+.cat-secim{display:none;margin-top:.85rem}
+.cat-secim-label{font-size:.82rem;color:rgba(255,255,255,.45);margin-bottom:.65rem}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.cat-opt{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;padding:.7rem .85rem;
+  font-size:.85rem;font-weight:500;color:rgba(255,255,255,.75);
+  cursor:pointer;text-align:left;font-family:inherit;
+  transition:background .2s,border-color .2s;display:flex;align-items:center;gap:.4rem;
+}
+.cat-opt:active{background:rgba(37,211,102,.15);border-color:var(--wa)}
+
+/* HIZLI KATEGORİLER */
+.hizli{margin:1.25rem 1.25rem 0}
+.hizli-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.65rem}
+.hizli-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.hizli-btn{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:.85rem;
+  text-decoration:none;display:flex;align-items:center;gap:.55rem;
+  color:rgba(255,255,255,.65);font-size:.85rem;font-weight:500;
+  font-family:'DM Sans',sans-serif;cursor:pointer;
+  transition:background .2s,border-color .2s;
+}
+.hizli-btn:active{background:rgba(37,211,102,.1);border-color:rgba(37,211,102,.25)}
+.hizli-em{font-size:1.2rem}
+
+/* FOOTER */
+.footer-note{text-align:center;padding:2rem 1.25rem;font-size:.75rem;color:rgba(255,255,255,.2);line-height:1.6}
+.footer-note a{color:rgba(255,255,255,.35);text-decoration:none}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Yakında<em>Usta</em></a>
+  <span class="nav-tag">Giresun</span>
+</nav>
+
+<div class="live-bar">
+  <div class="live-l"><div class="live-dot"></div><span id="liveN">4 kişi</span> şu an usta arıyor</div>
+  <div class="live-r">⏱ Ort. <strong style="color:rgba(255,255,255,.65)">7 dk</strong></div>
+</div>
+
+<div class="hero">
+  <div class="hero-tag">Yapay zeka destekli usta eşleştirme</div>
+  <h1>Sorunu yaz,<br><em>ustayı bulalım</em></h1>
+  <p class="hero-sub">Ne olduğunu anlat. Kategoriyi biz buluruz, ustaya bağlarız.</p>
+</div>
+
+<!-- AI KUTU -->
+<div class="ai-box">
+  <div class="ai-label">Sorunu anlat</div>
+  <div class="ai-input-wrap">
+    <textarea id="sorun" placeholder="Örn: Banyoda musluk damlıyor ve su sayacı aşırı hızlı dönüyor..." rows="3" oninput="charSay(this)" maxlength="300"></textarea>
+    <div class="char-count"><span id="charN">0</span>/300</div>
+  </div>
+  <button class="ai-btn" id="anaBtn" onclick="analizEt()">
+    <span id="btnIco">🔍</span>
+    <span id="btnTxt">Usta Bul</span>
+    <div class="spinner" id="spinner"></div>
+  </button>
+</div>
+
+<!-- SONUÇ -->
+<div class="result-box" id="resultBox">
+  <div class="result-card" id="resultCard">
+    <div class="result-label">Yapay zeka analizi</div>
+    <div class="result-kategori">
+      <div class="kategori-badge" id="katBadge">🔧 Tesisat</div>
+    </div>
+    <div class="result-ai-yorum" id="aiYorum"></div>
+
+    <!-- Kategori emin değilse -->
+    <div class="cat-secim" id="catSecim">
+      <div class="cat-secim-label">Kategoriyi teyit eder misin?</div>
+      <div class="cat-grid" id="catGrid"></div>
+    </div>
+
+    <button class="result-wa-btn" id="waBtn" onclick="waGonder()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.119.554 4.106 1.524 5.829L.057 23.215a.75.75 0 0 0 .918.932l5.396-1.467A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.924 0-3.72-.523-5.254-1.432l-.376-.222-3.9 1.06 1.023-3.795-.243-.389A9.713 9.713 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+      WhatsApp'tan Bağlan
+    </button>
+  </div>
+</div>
+
+<!-- HIZLI KATEGORİLER -->
+<div class="hizli">
+  <div class="hizli-label">veya direkt seç</div>
+  <div class="hizli-grid">
+    <button class="hizli-btn" onclick="hizliSec('🧹','Temizlik','Ev, ofis, merdiven temizliği')"><span class="hizli-em">🧹</span> Temizlik</button>
+    <button class="hizli-btn" onclick="hizliSec('⚡','Elektrik','Elektrik arızası, montaj')"><span class="hizli-em">⚡</span> Elektrik</button>
+    <button class="hizli-btn" onclick="hizliSec('🔧','Tesisat','Su, boru, musluk tamiri')"><span class="hizli-em">🔧</span> Tesisat</button>
+    <button class="hizli-btn" onclick="hizliSec('🚛','Nakliye','Ev ve ofis taşıma')"><span class="hizli-em">🚛</span> Nakliye</button>
+    <button class="hizli-btn" onclick="hizliSec('🎨','Boya','İç ve dış cephe boyası')"><span class="hizli-em">🎨</span> Boya & Badana</button>
+    <button class="hizli-btn" onclick="hizliSec('🏠','Tadilat','Genel tamirat, yenileme')"><span class="hizli-em">🏠</span> Tadilat</button>
+  </div>
+</div>
+
+<div class="footer-note">
+  <a href="https://yakindausta.com.tr">yakindausta.com.tr</a> · Giresun'un usta platformu<br>
+  © 2025 YakındaUsta
+</div>
+
+<script>
+// ============================================================
+// GÜVENLİ VERSİYON - API ANAHTARI YOK!
+// Sadece backend ile konuşur (http://localhost:3000)
+// GitHub'a güvenle koyabilirsin ✅
+// ============================================================
+
+const WA_NUM = "905060270551";
+const API_URL = "http://localhost:3000/kategori";
+
+// Durum
+let seciliKategori = "";
+let seciliDetay = "";
+let seciliEmoji = "";
+
+// Karakter sayacı
+function charSay(el) {
+  document.getElementById("charN").textContent = el.value.length;
+}
+
+// Canlı sayaç
+function liveGuncelle() {
+  const n = Math.floor(Math.random() * 5) + 2;
+  document.getElementById("liveN").textContent = n + " kişi";
+  setTimeout(liveGuncelle, Math.random() * 60000 + 30000);
+}
+setTimeout(liveGuncelle, 40000);
+
+// ── KEYWORD FALLBACK (Backend çalışmazsa yedek) ──────────────
+function keywordKategori(metin) {
+  metin = metin.toLowerCase();
+  const kurallar = [
+    { kat:"Tesisat",  emoji:"🔧", kelimeler:["su","musluk","tıkan","lavabo","boru","kaçak","wc","tuvalet","banyo","sayaç","sifon"] },
+    { kat:"Elektrik", emoji:"⚡", kelimeler:["priz","elektrik","sigorta","kaçak akım","lamba","aydınlatma","kablo","pano","röle","avize"] },
+    { kat:"Temizlik", emoji:"🧹", kelimeler:["temizlik","halı","koltuk","cam","merdiven","ofis","ev temiz","derin temiz","inşaat sonrası"] },
+    { kat:"Nakliye",  emoji:"🚛", kelimeler:["taşın","nakliye","ev taşı","ofis taşı","eşya","kamyon","nakil"] },
+    { kat:"Boya",     emoji:"🎨", kelimeler:["boya","badana","duvar","sıva","alçı","dış cephe","iç cephe","astar"] },
+    { kat:"Tadilat",  emoji:"🏠", kelimeler:["tadilat","tamirat","yenile","kapı","pencere","seramik","fayans","dolap","marangoz","çatı","dam"] },
+  ];
+  let maxSkor = 0, sonuc = null;
+  for (const k of kurallar) {
+    let skor = k.kelimeler.filter(w => metin.includes(w)).length;
+    if (skor > maxSkor) { maxSkor = skor; sonuc = k; }
+  }
+  return maxSkor > 0 ? sonuc : null;
+}
+
+// ── ANA ANALİZ FONKSİYONU (Backend'e bağlanır) ────────────────
+async function analizEt() {
+  const metin = document.getElementById("sorun").value.trim();
+  if (!metin) {
+    document.getElementById("sorun").focus();
+    document.getElementById("sorun").style.borderColor = "rgba(245,70,70,.4)";
+    setTimeout(() => document.getElementById("sorun").style.borderColor = "", 1200);
+    return;
+  }
+
+  // Buton loading yap
+  const btn = document.getElementById("anaBtn");
+  const spinner = document.getElementById("spinner");
+  const btnIco = document.getElementById("btnIco");
+  const btnTxt = document.getElementById("btnTxt");
+  btn.disabled = true;
+  btn.classList.add("loading");
+  btnIco.style.display = "none";
+  spinner.style.display = "block";
+  btnTxt.textContent = "Analiz ediliyor...";
+
+  let kategori = "", emoji = "", yorum = "", emin = false;
+
+  // BACKEND'E SOR (API anahtarı backend'de, burda YOK!)
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ mesaj: metin })
+    });
+    
+    if (res.ok) {
+      const data = await res.json();
+      if (data.kategori) {
+        kategori = data.kategori;
+        emoji = data.emoji || "🔧";
+        yorum = data.yorum || "Size en uygun ustayı bulduk.";
+        emin = data.emin !== undefined ? data.emin : true;
+      } else {
+        throw new Error("Kategori bulunamadı");
+      }
+    } else {
+      throw new Error("Backend hatası: " + res.status);
+    }
+  } catch(e) {
+    console.warn("Backend bağlantı hatası, keyword'e geçildi:", e);
+    // Backend çalışmazsa keyword fallback
+    const k = keywordKategori(metin);
+    if (k) {
+      kategori = k.kat;
+      emoji = k.emoji;
+      yorum = "Sorunu analiz ettik, sizi en uygun ustayla buluşturalım.";
+      emin = true;
+    } else {
+      kategori = "Bilinmiyor";
+      emoji = "❓";
+      yorum = "Hangi kategoride olduğunu seçer misin?";
+      emin = false;
+    }
+  }
+
+  seciliKategori = kategori;
+  seciliDetay = metin;
+  seciliEmoji = emoji;
+
+  // Sonucu göster
+  sonucGoster(kategori, emoji, yorum, emin, metin);
+
+  // Butonu normale al
+  btn.disabled = false;
+  btn.classList.remove("loading");
+  btnIco.style.display = "block";
+  spinner.style.display = "none";
+  btnTxt.textContent = "Usta Bul";
+}
+
+// ── SONUÇ GÖSTER ─────────────────────────────────────────
+function sonucGoster(kategori, emoji, yorum, emin, metin) {
+  document.getElementById("resultBox").style.display = "block";
+  document.getElementById("resultCard").classList.add("show");
+
+  document.getElementById("katBadge").textContent = emoji + " " + kategori;
+  document.getElementById("aiYorum").textContent = '"' + yorum + '"';
+
+  const catSecim = document.getElementById("catSecim");
+  const catGrid = document.getElementById("catGrid");
+
+  if (!emin || kategori === "Bilinmiyor") {
+    catSecim.style.display = "block";
+    const kategoriler = [
+      {e:"🧹",k:"Temizlik"},{e:"⚡",k:"Elektrik"},{e:"🔧",k:"Tesisat"},
+      {e:"🚛",k:"Nakliye"},{e:"🎨",k:"Boya"},{e:"🏠",k:"Tadilat"}
+    ];
+    catGrid.innerHTML = kategoriler.map(c =>
+      `<button class="cat-opt" onclick="katSec('${c.e}','${c.k}')">${c.e} ${c.k}</button>`
+    ).join("");
+  } else {
+    catSecim.style.display = "none";
+  }
+
+  // Scroll to result
+  setTimeout(() => {
+    document.getElementById("resultBox").scrollIntoView({behavior:"smooth", block:"nearest"});
+  }, 100);
+}
+
+// Kullanıcı kategori seçti
+function katSec(emoji, kat) {
+  seciliEmoji = emoji;
+  seciliKategori = kat;
+  document.getElementById("katBadge").textContent = emoji + " " + kat;
+  document.getElementById("catSecim").style.display = "none";
+  document.getElementById("aiYorum").textContent = '"' + kat + ' kategorisini seçtin. WhatsApp\'tan bağlanalım!"';
+}
+
+// ── WHATSAPP GÖNDER ───────────────────────────────────────
+function waGonder() {
+  if (!seciliKategori || seciliKategori === "Bilinmiyor") {
+    document.getElementById("catSecim").style.display = "block";
+    return;
+  }
+  const mesaj =
+`Merhaba, YakındaUsta üzerinden yazıyorum 👋
+
+🔧 Hizmet: ${seciliKategori}
+📝 Detay: ${seciliDetay || "—"}
+📍 Konum: Giresun`;
+
+  window.open("https://wa.me/" + WA_NUM + "?text=" + encodeURIComponent(mesaj), "_blank");
+}
+
+// ── HIZLI SEÇ ────────────────────────────────────────────
+function hizliSec(emoji, kat, aciklama) {
+  seciliKategori = kat;
+  seciliEmoji = emoji;
+  seciliDetay = "";
+  document.getElementById("sorun").value = "";
+
+  document.getElementById("resultBox").style.display = "block";
+  document.getElementById("resultCard").classList.add("show");
+  document.getElementById("katBadge").textContent = emoji + " " + kat;
+  document.getElementById("aiYorum").textContent = '"' + aciklama + ' için usta buluyoruz."';
+  document.getElementById("catSecim").style.display = "none";
+
+  const mesaj =
+`Merhaba, YakındaUsta üzerinden yazıyorum 👋
+
+🔧 Hizmet: ${kat}
+📍 Konum: Giresun`;
+
+  window.open("https://wa.me/" + WA_NUM + "?text=" + encodeURIComponent(mesaj), "_blank");
+}
+
+// Enter ile gönder
+document.getElementById("sorun").addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); analizEt(); }
+});
+</script>
+</body>
+</html>
