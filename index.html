@@ -2,429 +2,450 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>YakındaUsta — Giresun'da Usta Bul</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>40 Yaş Özel | Bilimsel Dönüşüm</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#0D0D12;
-  --paper:#F7F4EE;
-  --wa:#25D366;
-  --wa-d:#1DAA54;
-  --amber:#F5A623;
-  --muted:#6B6878;
-  --border:rgba(13,13,18,.08);
-  --card:#FFFFFF;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
-body{font-family:'DM Sans',sans-serif;background:var(--ink);color:white;overflow-x:hidden;max-width:480px;margin:0 auto;min-height:100vh}
+  :root {
+    --bg: #0a0f1e;
+    --card: #111827;
+    --card2: #1a2235;
+    --accent: #00e5a0;
+    --accent2: #ff6b35;
+    --accent3: #ffd700;
+    --text: #e8eaf0;
+    --muted: #6b7a99;
+    --border: #1e2d45;
+    --warning-bg: #1a1000;
+    --warning-border: #7c5c00;
+    --warning-text: #f5b042;
+  }
 
-/* NAV */
-nav{
-  padding:1rem 1.25rem;
-  display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:white;text-decoration:none}
-.logo em{color:var(--wa);font-style:normal}
-.nav-tag{font-size:.72rem;background:rgba(37,211,102,.15);color:var(--wa);padding:.3rem .7rem;border-radius:99px;font-weight:600}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* HERO */
-.hero{padding:2rem 1.25rem 1.5rem;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;width:300px;height:300px;background:rgba(37,211,102,.07);border-radius:50%;filter:blur(60px);top:-60px;left:50%;transform:translateX(-50%);pointer-events:none}
-.hero-tag{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:.35rem .85rem;font-size:.75rem;color:rgba(255,255,255,.55);margin-bottom:1.25rem}
-.hero-tag::before{content:'📍'}
-h1{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;line-height:1.1;letter-spacing:-.02em;margin-bottom:.65rem;position:relative;z-index:1}
-h1 em{color:var(--wa);font-style:normal}
-.hero-sub{font-size:.9rem;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:0;font-weight:300;position:relative;z-index:1}
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    background-image: radial-gradient(ellipse at 20% 20%, #0d2a1f 0%, transparent 50%),
+                      radial-gradient(ellipse at 80% 80%, #1a0a05 0%, transparent 50%);
+  }
 
-/* LIVE BAR */
-.live-bar{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);margin:1.25rem 1.25rem 0;border-radius:12px;padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between}
-.live-l{display:flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:600;color:var(--wa)}
-.live-dot{width:7px;height:7px;background:var(--wa);border-radius:50%;animation:blink 1.4s ease infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.live-r{font-size:.75rem;color:rgba(255,255,255,.4)}
+  header {
+    padding: 48px 24px 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
 
-/* AI KUTU */
-.ai-box{margin:1.25rem 1.25rem 0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.25rem;position:relative;overflow:hidden}
-.ai-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--wa),transparent);opacity:.4}
-.ai-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.65rem;display:flex;align-items:center;gap:.4rem}
-.ai-label::before{content:'';width:6px;height:6px;background:var(--wa);border-radius:50%;display:inline-block}
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 200px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
 
-.ai-input-wrap{position:relative}
-textarea{
-  width:100%;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:14px;
-  padding:1rem 1rem 2.8rem 1rem;
-  color:white;
-  font-size:.95rem;
-  font-family:'DM Sans',sans-serif;
-  resize:none;
-  outline:none;
-  line-height:1.55;
-  transition:border-color .2s;
-  min-height:100px;
-}
-textarea::placeholder{color:rgba(255,255,255,.25)}
-textarea:focus{border-color:rgba(37,211,102,.4)}
+  .title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 3px;
+    background: linear-gradient(135deg, var(--accent), #00b4d8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
 
-.char-count{position:absolute;bottom:.75rem;right:.9rem;font-size:.7rem;color:rgba(255,255,255,.25)}
+  .subtitle { color: var(--accent3); margin-top: 8px; font-size: 1rem; letter-spacing: 1.5px; font-weight: 500; }
 
-.ai-btn{
-  width:100%;margin-top:.85rem;
-  background:var(--wa);color:white;
-  border:none;border-radius:14px;
-  padding:1rem;
-  font-size:1rem;font-weight:700;
-  font-family:'DM Sans',sans-serif;
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:.5rem;
-  transition:background .2s,transform .15s;
-  box-shadow:0 6px 20px rgba(37,211,102,.3);
-}
-.ai-btn:active{transform:scale(.98)}
-.ai-btn:disabled{background:rgba(255,255,255,.1);box-shadow:none;cursor:not-allowed}
-.ai-btn.loading{background:rgba(37,211,102,.6)}
+  .doctor-badge {
+    background: rgba(0,229,160,0.1);
+    border: 1px solid var(--accent);
+    border-radius: 40px;
+    padding: 8px 20px;
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
 
-/* SPINNER */
-.spinner{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:none}
-@keyframes spin{to{transform:rotate(360deg)}}
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    padding: 32px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
 
-/* SONUÇ */
-.result-box{margin:1rem 1.25rem 0;display:none}
-.result-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:1.25rem;position:relative;overflow:hidden}
-.result-card.show{border-color:rgba(37,211,102,.25)}
-.result-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:.75rem}
-.result-kategori{display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem}
-.kategori-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.2);border-radius:8px;padding:.4rem .85rem;font-size:.88rem;font-weight:600;color:var(--wa)}
-.result-ai-yorum{font-size:.88rem;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:1.1rem;font-style:italic}
-.result-wa-btn{
-  display:flex;align-items:center;justify-content:center;gap:.55rem;
-  background:var(--wa);color:white;
-  padding:.95rem;border-radius:12px;
-  font-size:.95rem;font-weight:700;text-decoration:none;
-  box-shadow:0 4px 16px rgba(37,211,102,.3);
-  transition:background .2s;border:none;cursor:pointer;font-family:inherit;width:100%;
-}
-.result-wa-btn:active{background:var(--wa-d)}
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
 
-/* KATEGORİ SEÇ */
-.cat-secim{display:none;margin-top:.85rem}
-.cat-secim-label{font-size:.82rem;color:rgba(255,255,255,.45);margin-bottom:.65rem}
-.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
-.cat-opt{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:10px;padding:.7rem .85rem;
-  font-size:.85rem;font-weight:500;color:rgba(255,255,255,.75);
-  cursor:pointer;text-align:left;font-family:inherit;
-  transition:background .2s,border-color .2s;display:flex;align-items:center;gap:.4rem;
-}
-.cat-opt:active{background:rgba(37,211,102,.15);border-color:var(--wa)}
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .stat-card:nth-child(1)::before { background: var(--accent); }
+  .stat-card:nth-child(2)::before { background: var(--accent2); }
+  .stat-card:nth-child(3)::before { background: var(--accent3); }
+  .stat-card:nth-child(4)::before { background: #a78bfa; }
 
-/* HIZLI KATEGORİLER */
-.hizli{margin:1.25rem 1.25rem 0}
-.hizli-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.65rem}
-.hizli-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
-.hizli-btn{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:12px;padding:.85rem;
-  text-decoration:none;display:flex;align-items:center;gap:.55rem;
-  color:rgba(255,255,255,.65);font-size:.85rem;font-weight:500;
-  font-family:'DM Sans',sans-serif;cursor:pointer;
-  transition:background .2s,border-color .2s;
-}
-.hizli-btn:active{background:rgba(37,211,102,.1);border-color:rgba(37,211,102,.25)}
-.hizli-em{font-size:1.2rem}
+  .stat-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .stat-card:nth-child(1) .stat-val { color: var(--accent); }
+  .stat-card:nth-child(2) .stat-val { color: var(--accent2); }
+  .stat-card:nth-child(3) .stat-val { color: var(--accent3); }
+  .stat-card:nth-child(4) .stat-val { color: #a78bfa; }
 
-/* FOOTER */
-.footer-note{text-align:center;padding:2rem 1.25rem;font-size:.75rem;color:rgba(255,255,255,.2);line-height:1.6}
-.footer-note a{color:rgba(255,255,255,.35);text-decoration:none}
+  .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; }
+
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title span { color: var(--accent); }
+
+  .warning {
+    background: var(--warning-bg);
+    border-left: 4px solid var(--warning-border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 0.85rem;
+    color: var(--warning-text);
+    line-height: 1.6;
+  }
+
+  .meal-grid {
+    display: grid;
+    gap: 12px;
+  }
+
+  .meal-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .meal-time {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  .meal-name { font-weight: 600; font-size: 0.95rem; }
+  .meal-detail { font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
+
+  .kcal {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    color: var(--accent2);
+    white-space: nowrap;
+  }
+
+  .week-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .week-tab {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .week-tab.active, .week-tab:hover {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .week-content { display: none; }
+  .week-content.active { display: grid; gap: 10px; }
+
+  .day-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .day-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    color: var(--accent3);
+    letter-spacing: 1px;
+  }
+
+  .day-section-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .day-content { font-size: 0.85rem; line-height: 1.6; }
+  .day-content li { list-style: none; padding-left: 0; margin-bottom: 4px; }
+  .day-content li::before { content: '→ '; color: var(--accent); }
+
+  .rest-badge {
+    display: inline-block;
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .month-timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+
+  .month-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2), #a78bfa);
+  }
+
+  .month-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .month-item::before {
+    content: '';
+    position: absolute;
+    left: -28px; top: 50%; transform: translateY(-50%);
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+
+  .month-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .month-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+  }
+
+  .month-kg {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--accent);
+  }
+
+  .progress-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent), #00b4d8);
+  }
+
+  .month-detail { font-size: 0.82rem; color: var(--muted); margin-top: 8px; }
+
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .rule-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .rule-icon { font-size: 1.8rem; margin-bottom: 8px; }
+  .rule-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+  .rule-text { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+  @media (max-width: 600px) {
+    .day-card { grid-template-columns: 70px 1fr; }
+    .day-card > div:last-child { grid-column: 2; }
+    .meal-card { grid-template-columns: 1fr; gap: 4px; }
+    .month-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="#" class="logo">Yakında<em>Usta</em></a>
-  <span class="nav-tag">Giresun</span>
-</nav>
+<header>
+  <div class="title">40 YAŞ<br>METABOLİZMA DÖNÜŞÜMÜ</div>
+  <div class="subtitle">90 kg → 71 kg | Bilimsel & Gerçekçi 9 Aylık Program</div>
+  <div class="doctor-badge">⚠️ Önce Dahiliye / Endokrinoloji'ye danış | VKİ: 32.2 (Obez)</div>
+</header>
 
-<div class="live-bar">
-  <div class="live-l"><div class="live-dot"></div><span id="liveN">4 kişi</span> şu an usta arıyor</div>
-  <div class="live-r">⏱ Ort. <strong style="color:rgba(255,255,255,.65)">7 dk</strong></div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="stat-val">1650</div><div class="stat-label">Günlük Kalori</div></div>
+  <div class="stat-card"><div class="stat-val">140g</div><div class="stat-label">Protein (Kas koru)</div></div>
+  <div class="stat-card"><div class="stat-val">3L</div><div class="stat-label">Su İç</div></div>
+  <div class="stat-card"><div class="stat-val">7h</div><div class="stat-label">Uyku (Kortizol kontrol)</div></div>
 </div>
 
-<div class="hero">
-  <div class="hero-tag">Yapay zeka destekli usta eşleştirme</div>
-  <h1>Sorunu yaz,<br><em>ustayı bulalım</em></h1>
-  <p class="hero-sub">Ne olduğunu anlat. Kategoriyi biz buluruz, ustaya bağlarız.</p>
-</div>
-
-<!-- AI KUTU -->
-<div class="ai-box">
-  <div class="ai-label">Sorunu anlat</div>
-  <div class="ai-input-wrap">
-    <textarea id="sorun" placeholder="Örn: Banyoda musluk damlıyor ve su sayacı aşırı hızlı dönüyor..." rows="3" oninput="charSay(this)" maxlength="300"></textarea>
-    <div class="char-count"><span id="charN">0</span>/300</div>
-  </div>
-  <button class="ai-btn" id="anaBtn" onclick="analizEt()">
-    <span id="btnIco">🔍</span>
-    <span id="btnTxt">Usta Bul</span>
-    <div class="spinner" id="spinner"></div>
-  </button>
-</div>
-
-<!-- SONUÇ -->
-<div class="result-box" id="resultBox">
-  <div class="result-card" id="resultCard">
-    <div class="result-label">Yapay zeka analizi</div>
-    <div class="result-kategori">
-      <div class="kategori-badge" id="katBadge">🔧 Tesisat</div>
-    </div>
-    <div class="result-ai-yorum" id="aiYorum"></div>
-
-    <!-- Kategori emin değilse -->
-    <div class="cat-secim" id="catSecim">
-      <div class="cat-secim-label">Kategoriyi teyit eder misin?</div>
-      <div class="cat-grid" id="catGrid"></div>
-    </div>
-
-    <button class="result-wa-btn" id="waBtn" onclick="waGonder()">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.119.554 4.106 1.524 5.829L.057 23.215a.75.75 0 0 0 .918.932l5.396-1.467A11.944 11.944 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.924 0-3.72-.523-5.254-1.432l-.376-.222-3.9 1.06 1.023-3.795-.243-.389A9.713 9.713 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
-      WhatsApp'tan Bağlan
-    </button>
+<!-- BESLENME PLANI (YENİ, 1650 kcal) -->
+<div class="section">
+  <div class="section-title">🥗 <span>Günlük</span> Beslenme Planı (1650 kcal)</div>
+  <div class="warning">⚠️ 40 yaş altın kural: Öğün atlama yasak. İlk lokmadan önce sebze ye. Akşam 19:30'dan sonra sadece su iç.</div>
+  <div class="meal-grid">
+    <div class="meal-card"><div class="meal-time">08:30</div><div><div class="meal-name">Kahvaltı (Proteince zengin)</div><div class="meal-detail">2 haşlanmış yumurta, 1 dilim tam buğday, 1 tatlı kaşığı zeytinyağı, bol domates/salatalık/maydanoz, yeşil çay</div></div><div class="kcal">350 kcal</div></div>
+    <div class="meal-card"><div class="meal-time">11:30</div><div><div class="meal-name">Ara Öğün</div><div class="meal-detail">1 su bardağı sade kefir veya 1 küçük elma</div></div><div class="kcal">120 kcal</div></div>
+    <div class="meal-card"><div class="meal-time">13:30</div><div><div class="meal-name">Öğle Yemeği</div><div class="meal-detail">150g ızgara tavuk/balık veya 1 kase mercimek çorbası, 1 tabak limonlu salata, 1 dilim tam buğday ekmeği</div></div><div class="kcal">450 kcal</div></div>
+    <div class="meal-card"><div class="meal-time">16:30</div><div><div class="meal-name">Ara Öğün</div><div class="meal-detail">10-12 çiğ badem + 1 mandalina veya 1 küçük muz (spor günü)</div></div><div class="kcal">170 kcal</div></div>
+    <div class="meal-card"><div class="meal-time">19:00</div><div><div class="meal-name">Akşam Yemeği</div><div class="detail">Zeytinyağlı sebze yemeği (patates yok) + 150g ızgara et/tavuk/köfte + bol yeşillik. Ekmek yok!</div></div><div class="kcal">500 kcal</div></div>
+    <div class="meal-card"><div class="meal-time">21:30</div><div><div class="meal-name">Gece (acıkırsan)</div><div class="meal-detail">1 bardak ılık su + tarçın veya 2 ceviz içi</div></div><div class="kcal">60 kcal</div></div>
   </div>
 </div>
 
-<!-- HIZLI KATEGORİLER -->
-<div class="hizli">
-  <div class="hizli-label">veya direkt seç</div>
-  <div class="hizli-grid">
-    <button class="hizli-btn" onclick="hizliSec('🧹','Temizlik','Ev, ofis, merdiven temizliği')"><span class="hizli-em">🧹</span> Temizlik</button>
-    <button class="hizli-btn" onclick="hizliSec('⚡','Elektrik','Elektrik arızası, montaj')"><span class="hizli-em">⚡</span> Elektrik</button>
-    <button class="hizli-btn" onclick="hizliSec('🔧','Tesisat','Su, boru, musluk tamiri')"><span class="hizli-em">🔧</span> Tesisat</button>
-    <button class="hizli-btn" onclick="hizliSec('🚛','Nakliye','Ev ve ofis taşıma')"><span class="hizli-em">🚛</span> Nakliye</button>
-    <button class="hizli-btn" onclick="hizliSec('🎨','Boya','İç ve dış cephe boyası')"><span class="hizli-em">🎨</span> Boya & Badana</button>
-    <button class="hizli-btn" onclick="hizliSec('🏠','Tadilat','Genel tamirat, yenileme')"><span class="hizli-em">🏠</span> Tadilat</button>
+<!-- HAFTALIK EGZERSİZ (40 YAŞ VE EKLEM DOSTU) -->
+<div class="section">
+  <div class="section-title">🏋️ <span>Haftalık</span> Egzersiz Programı (40 yaş özel)</div>
+  <div class="week-tabs">
+    <button class="week-tab active" onclick="showWeek('w1')">Ay 1-2 (Alışma)</button>
+    <button class="week-tab" onclick="showWeek('w2')">Ay 3-4 (Yağ Yakma)</button>
+    <button class="week-tab" onclick="showWeek('w3')">Ay 5-6 (Forma Gir)</button>
+  </div>
+
+  <!-- AY 1-2 -->
+  <div class="week-content active" id="w1">
+    <div class="day-card"><div class="day-name">PAZARTESİ</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>40 dk tempolu yürüyüş (5km/s)</li><li>Duvar şınavı 3x15</li><li>Squat 3x15</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Egzersizden önce 1 muz</li><li>Sonrası 2 yumurta</li></div></div></div>
+    <div class="day-card"><div class="day-name">SALI</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>20 dk esneme + hafif yürüyüş</li><div class="rest-badge">Aktif dinlenme</div></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Standart plan</li><li>Bol sıvı tüket</li></div></div></div>
+    <div class="day-card"><div class="day-name">ÇARŞAMBA</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>45 dk yürüyüş</li><li>3×20 mekik (ayak yerde)</li><li>Plank 3×20 sn</li><li>Lunge 3x10</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Protein öğününe dikkat et</li></div></div></div>
+    <div class="day-card"><div class="day-name">PERŞEMBE</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>Dinlenme / 10 dk yürü</li><div class="rest-badge">Tam dinlenme</div></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Akşam yemeğini 18:30'da bitir</li></div></div></div>
+    <div class="day-card"><div class="day-name">CUMA</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>50 dk interval: 2 dk yürü / 1 dk hafif koş</li><li>3x10 şınav, 3x30 sn plank</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Karbonhidratı azalt (sadece öğle)</li></div></div></div>
+    <div class="day-card"><div class="day-name">CUMARTESİ</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>1 saat doğa yürüyüşü veya yüzme</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Dışarıda ızgara + bol salata</li><li>Sıfır alkol</li></div></div></div>
+    <div class="day-card"><div class="day-name">PAZAR</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><div class="rest-badge">TAM DİNLENME</div></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Sabah aç karnına ölçüm</li><li>Haftalık ilerlemeyi not et</li></div></div></div>
+  </div>
+
+  <!-- AY 3-4 -->
+  <div class="week-content" id="w2">
+    <div class="day-card"><div class="day-name">PAZARTESİ</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>50 dk tempolu yürüyüş</li><li>Direnç bandı squat 3x15</li><li>Şınav 3x12</li><li>Plank 3x40 sn</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Kahvaltıya 1 yumurta daha ekle</li></div></div></div>
+    <div class="day-card"><div class="day-name">SALI</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>30 dk yoga veya pilates</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Kefir ve probiyotik al</li></div></div></div>
+    <div class="day-card"><div class="day-name">ÇARŞAMBA</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>55 dk yürüyüş + 15 dk merdiven çık</li><li>Mekik 3x25, köprü hareketi 3x15</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Öğlen salata oranını arttır</li></div></div></div>
+    <div class="day-card"><div class="day-name">PERŞEMBE</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>20 dk hafif yürüyüş</li><div class="rest-badge">Aktif dinlenme</div></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Akşam yemeğinde karbonhidrat yok</li></div></div></div>
+    <div class="day-card"><div class="day-name">CUMA</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>60 dk tempolu yürüyüş</li><li>3x12 lunge, 3x10 kalça köprüsü</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Bol su iç (3 litre tamamla)</li></div></div></div>
+    <div class="day-card"><div class="day-name">CUMARTESİ</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>1.5 saat hafif tempolu doğa yürüyüşü</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Ödül günü değil, standart plan</li></div></div></div>
+    <div class="day-card"><div class="day-name">PAZAR</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><div class="rest-badge">Dinlenme (esneme)</div></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Kilo kontrolü ve motivasyon yazısı</li></div></div></div>
+  </div>
+
+  <!-- AY 5-6 -->
+  <div class="week-content" id="w3">
+    <div class="day-card"><div class="day-name">PAZARTESİ</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>45 dk koşu bandı / açık hava interval</li><li>Şınav 4x12, mekik 4x25, plank 3x50 sn</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Metabolizma hızlandı, kaloriyi 1750'e çıkar</li></div></div></div>
+    <div class="day-card"><div class="day-name">SALI</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>30 dk yüksek tempolu yürüyüş</li><li>Bölgesel karın hareketleri</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Ekstra protein: ton balığı</li></div></div></div>
+    <div class="day-card"><div class="day-name">ÇARŞAMBA</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>1 saat yürüyüş + hafif koşu</li><li>Tüm vücut direnç egzersizi</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Karbonhidrat sadece öğle yemeğinde</li></div></div></div>
+    <div class="day-card"><div class="day-name">PERŞEMBE</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>Yoga / esneme / meditasyon (kortizol düşür)</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Bol yeşillik, ara öğünde avokado</li></div></div></div>
+    <div class="day-card"><div class="day-name">CUMA</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>45 dk interval (2dk yürü, 2dk koş)</li><li>Plank ve squat yoğun</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Akşam yemeği sadece protein + salata</li></div></div></div>
+    <div class="day-card"><div class="day-name">CUMARTESİ</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><li>Yüzme veya bisiklet 60 dk</li></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Haftada bir ödül değil, alışkanlık</li></div></div></div>
+    <div class="day-card"><div class="day-name">PAZAR</div><div><div class="day-section-title">🏃 Egzersiz</div><div class="day-content"><div class="rest-badge">Tam dinlenme</div></div></div><div><div class="day-section-title">🍽 Beslenme notu</div><div class="day-content"><li>Hedef kontrol: 81-79 kg arası beklenir</li></div></div></div>
   </div>
 </div>
 
-<div class="footer-note">
-  <a href="https://yakindausta.com.tr">yakindausta.com.tr</a> · Giresun'un usta platformu<br>
-  © 2025 YakındaUsta
+<!-- 9 AYLIK GERÇEKÇİ HEDEFLER (40 YAŞ) -->
+<div class="section">
+  <div class="section-title">📅 <span>9 Aylık</span> Gerçekçi Hedef Tablosu</div>
+  <div class="month-timeline">
+    <div class="month-item"><div class="month-header"><span class="month-num">1. Ay (Başlangıç)</span><span class="month-kg">90 kg → 86.5 kg</span></div><div class="progress-bar"><div class="progress-fill" style="width: 35%;"></div></div><div class="month-detail">Şekeri tamamen kes. Yürüyüşe başla. 3 litre su.</div></div>
+    <div class="month-item"><div class="month-header"><span class="month-num">2. Ay</span><span class="month-kg">86.5 kg → 83.5 kg</span></div><div class="progress-bar"><div class="progress-fill" style="width: 50%;"></div></div><div class="month-detail">Porsiyon kontrolü oturdu. Gece yemek yeme yok.</div></div>
+    <div class="month-item"><div class="month-header"><span class="month-num">3. Ay</span><span class="month-kg">83.5 kg → 80.5 kg</span></div><div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div><div class="month-detail">Haftada 4 gün egzersiz. Karbonhidratı kıs.</div></div>
+    <div class="month-item"><div class="month-header"><span class="month-num">4. Ay</span><span class="month-kg">80.5 kg → 77.5 kg</span></div><div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div><div class="month-detail">Ağırlık/direnç ekle. Metabolizma platosu olabilir, sabret.</div></div>
+    <div class="month-item"><div class="month-header"><span class="month-num">5. Ay</span><span class="month-kg">77.5 kg → 74.5 kg</span></div><div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div><div class="month-detail">Haftada 1 gün re-feed (150g pirinç pilavı ekle).</div></div>
+    <div class="month-item"><div class="month-header"><span class="month-num">6. Ay</span><span class="month-kg">74.5 kg → 72.0 kg</span></div><div class="progress-bar"><div class="progress-fill" style="width: 92%;"></div></div><div class="month-detail">Yağlanma iyice azaldı. Kas kütlesini koru.</div></div>
+    <div class="month-item"><div class="month-header"><span class="month-num">8-9. Ay (Hedef)</span><span class="month-kg">★ 71 kg ★</span></div><div class="progress-bar"><div class="progress-fill" style="width: 100%; background: var(--accent2);"></div></div><div class="month-detail">40 yaş ve 1.67 boy için ideal aralık: 68-72 kg. 71 kg'da sağlıklı dur.</div></div>
+  </div>
+</div>
+
+<!-- 40 YAŞ ÖZEL ALTIN KURALLAR -->
+<div class="section">
+  <div class="section-title">🔥 <span>40 Yaş İçin</span> Metabolizma Kuralları</div>
+  <div class="rules-grid">
+    <div class="rule-card"><div class="rule-icon">😴</div><div class="rule-title">Uyku = Yağ Yakımı</div><div class="rule-text">7 saatten az uyku kortizolü yükseltir, göbek yağını depolar. 23:00'te yat.</div></div>
+    <div class="rule-card"><div class="rule-icon">🔄</div><div class="rule-title">Sıralı Beslenme</div><div class="rule-text">Önce lifli sebze → sonra protein → en son karbonhidrat. İnsülin patlamasını önler.</div></div>
+    <div class="rule-card"><div class="rule-icon">💧</div><div class="rule-title">Sabah Sirke Suyu</div><div class="rule-text">Aç karnına 1 yemek kaşığı elma sirkesi + 1 bardak su (insülin duyarlılığı artar).</div></div>
+    <div class="rule-card"><div class="rule-icon">🚫</div><div class="rule-title">Alkol Sıfır</div><div class="rule-text">40+ yaşta alkol direkt olarak iç organ yağlanmasına dönüşür. Kalori boş.</div></div>
+    <div class="rule-card"><div class="rule-icon">🥑</div><div class="rule-title">Sağlıklı Yağ Şart</div><div class="rule-text">Ceviz, avokado, zeytinyağı hormonların düzenli çalışmasını sağlar.</div></div>
+    <div class="rule-card"><div class="rule-icon">🏋️</div><div class="rule-title">Ağırlık Çalış</div><div class="rule-text">40'tan sonra yılda %1 kas kaybedersin. Direnç egzersizleri kas kütlesini korur.</div></div>
+  </div>
 </div>
 
 <script>
-// ============================================================
-// GÜVENLİ VERSİYON - API ANAHTARI YOK!
-// Render'daki backend ile konuşur
-// ============================================================
-
-const WA_NUM = "905060270551";
-// 🔴 BURAYI RENDER'IN VERDİĞİ URL İLE DEĞİŞTİR! 🔴
-const API_URL = "https://yakindausta-api.onrender.com/kategori";
-
-// Durum
-let seciliKategori = "";
-let seciliDetay = "";
-let seciliEmoji = "";
-
-// Karakter sayacı
-function charSay(el) {
-  document.getElementById("charN").textContent = el.value.length;
-}
-
-// Canlı sayaç
-function liveGuncelle() {
-  const n = Math.floor(Math.random() * 5) + 2;
-  document.getElementById("liveN").textContent = n + " kişi";
-  setTimeout(liveGuncelle, Math.random() * 60000 + 30000);
-}
-setTimeout(liveGuncelle, 40000);
-
-// ── KEYWORD FALLBACK (Backend çalışmazsa yedek) ──────────────
-function keywordKategori(metin) {
-  metin = metin.toLowerCase();
-  const kurallar = [
-    { kat:"Tesisat",  emoji:"🔧", kelimeler:["su","musluk","tıkan","lavabo","boru","kaçak","wc","tuvalet","banyo","sayaç","sifon"] },
-    { kat:"Elektrik", emoji:"⚡", kelimeler:["priz","elektrik","sigorta","kaçak akım","lamba","aydınlatma","kablo","pano","röle","avize"] },
-    { kat:"Temizlik", emoji:"🧹", kelimeler:["temizlik","halı","koltuk","cam","merdiven","ofis","ev temiz","derin temiz","inşaat sonrası"] },
-    { kat:"Nakliye",  emoji:"🚛", kelimeler:["taşın","nakliye","ev taşı","ofis taşı","eşya","kamyon","nakil"] },
-    { kat:"Boya",     emoji:"🎨", kelimeler:["boya","badana","duvar","sıva","alçı","dış cephe","iç cephe","astar"] },
-    { kat:"Tadilat",  emoji:"🏠", kelimeler:["tadilat","tamirat","yenile","kapı","pencere","seramik","fayans","dolap","marangoz","çatı","dam"] },
-  ];
-  let maxSkor = 0, sonuc = null;
-  for (const k of kurallar) {
-    let skor = k.kelimeler.filter(w => metin.includes(w)).length;
-    if (skor > maxSkor) { maxSkor = skor; sonuc = k; }
+  function showWeek(weekId) {
+    document.querySelectorAll('.week-content').forEach(div => div.classList.remove('active'));
+    document.getElementById(weekId).classList.add('active');
+    document.querySelectorAll('.week-tab').forEach(tab => tab.classList.remove('active'));
+    event.target.classList.add('active');
   }
-  return maxSkor > 0 ? sonuc : null;
-}
-
-// ── ANA ANALİZ FONKSİYONU (Render'daki backend'e bağlanır) ───
-async function analizEt() {
-  const metin = document.getElementById("sorun").value.trim();
-  if (!metin) {
-    document.getElementById("sorun").focus();
-    document.getElementById("sorun").style.borderColor = "rgba(245,70,70,.4)";
-    setTimeout(() => document.getElementById("sorun").style.borderColor = "", 1200);
-    return;
-  }
-
-  // Buton loading yap
-  const btn = document.getElementById("anaBtn");
-  const spinner = document.getElementById("spinner");
-  const btnIco = document.getElementById("btnIco");
-  const btnTxt = document.getElementById("btnTxt");
-  btn.disabled = true;
-  btn.classList.add("loading");
-  btnIco.style.display = "none";
-  spinner.style.display = "block";
-  btnTxt.textContent = "Analiz ediliyor...";
-
-  let kategori = "", emoji = "", yorum = "", emin = false;
-
-  // RENDER'DAKİ BACKEND'E SOR (API anahtarı backend'de, burda YOK!)
-  try {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ mesaj: metin })
-    });
-    
-    if (res.ok) {
-      const data = await res.json();
-      if (data.kategori) {
-        kategori = data.kategori;
-        emoji = data.emoji || "🔧";
-        yorum = data.yorum || "Size en uygun ustayı bulduk.";
-        emin = data.emin !== undefined ? data.emin : true;
-      } else {
-        throw new Error("Kategori bulunamadı");
-      }
-    } else {
-      throw new Error("Backend hatası: " + res.status);
-    }
-  } catch(e) {
-    console.warn("Backend bağlantı hatası, keyword'e geçildi:", e);
-    // Backend çalışmazsa keyword fallback
-    const k = keywordKategori(metin);
-    if (k) {
-      kategori = k.kat;
-      emoji = k.emoji;
-      yorum = "Sorunu analiz ettik, sizi en uygun ustayla buluşturalım.";
-      emin = true;
-    } else {
-      kategori = "Bilinmiyor";
-      emoji = "❓";
-      yorum = "Hangi kategoride olduğunu seçer misin?";
-      emin = false;
-    }
-  }
-
-  seciliKategori = kategori;
-  seciliDetay = metin;
-  seciliEmoji = emoji;
-
-  // Sonucu göster
-  sonucGoster(kategori, emoji, yorum, emin, metin);
-
-  // Butonu normale al
-  btn.disabled = false;
-  btn.classList.remove("loading");
-  btnIco.style.display = "block";
-  spinner.style.display = "none";
-  btnTxt.textContent = "Usta Bul";
-}
-
-// ── SONUÇ GÖSTER ─────────────────────────────────────────
-function sonucGoster(kategori, emoji, yorum, emin, metin) {
-  document.getElementById("resultBox").style.display = "block";
-  document.getElementById("resultCard").classList.add("show");
-
-  document.getElementById("katBadge").textContent = emoji + " " + kategori;
-  document.getElementById("aiYorum").textContent = '"' + yorum + '"';
-
-  const catSecim = document.getElementById("catSecim");
-  const catGrid = document.getElementById("catGrid");
-
-  if (!emin || kategori === "Bilinmiyor") {
-    catSecim.style.display = "block";
-    const kategoriler = [
-      {e:"🧹",k:"Temizlik"},{e:"⚡",k:"Elektrik"},{e:"🔧",k:"Tesisat"},
-      {e:"🚛",k:"Nakliye"},{e:"🎨",k:"Boya"},{e:"🏠",k:"Tadilat"}
-    ];
-    catGrid.innerHTML = kategoriler.map(c =>
-      `<button class="cat-opt" onclick="katSec('${c.e}','${c.k}')">${c.e} ${c.k}</button>`
-    ).join("");
-  } else {
-    catSecim.style.display = "none";
-  }
-
-  // Scroll to result
-  setTimeout(() => {
-    document.getElementById("resultBox").scrollIntoView({behavior:"smooth", block:"nearest"});
-  }, 100);
-}
-
-// Kullanıcı kategori seçti
-function katSec(emoji, kat) {
-  seciliEmoji = emoji;
-  seciliKategori = kat;
-  document.getElementById("katBadge").textContent = emoji + " " + kat;
-  document.getElementById("catSecim").style.display = "none";
-  document.getElementById("aiYorum").textContent = '"' + kat + ' kategorisini seçtin. WhatsApp\'tan bağlanalım!"';
-}
-
-// ── WHATSAPP GÖNDER ───────────────────────────────────────
-function waGonder() {
-  if (!seciliKategori || seciliKategori === "Bilinmiyor") {
-    document.getElementById("catSecim").style.display = "block";
-    return;
-  }
-  const mesaj =
-`Merhaba, YakındaUsta üzerinden yazıyorum 👋
-
-🔧 Hizmet: ${seciliKategori}
-📝 Detay: ${seciliDetay || "—"}
-📍 Konum: Giresun`;
-
-  window.open("https://wa.me/" + WA_NUM + "?text=" + encodeURIComponent(mesaj), "_blank");
-}
-
-// ── HIZLI SEÇ ────────────────────────────────────────────
-function hizliSec(emoji, kat, aciklama) {
-  seciliKategori = kat;
-  seciliEmoji = emoji;
-  seciliDetay = "";
-  document.getElementById("sorun").value = "";
-
-  document.getElementById("resultBox").style.display = "block";
-  document.getElementById("resultCard").classList.add("show");
-  document.getElementById("katBadge").textContent = emoji + " " + kat;
-  document.getElementById("aiYorum").textContent = '"' + aciklama + ' için usta buluyoruz."';
-  document.getElementById("catSecim").style.display = "none";
-
-  const mesaj =
-`Merhaba, YakındaUsta üzerinden yazıyorum 👋
-
-🔧 Hizmet: ${kat}
-📍 Konum: Giresun`;
-
-  window.open("https://wa.me/" + WA_NUM + "?text=" + encodeURIComponent(mesaj), "_blank");
-}
-
-// Enter ile gönder
-document.getElementById("sorun").addEventListener("keydown", e => {
-  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); analizEt(); }
-});
 </script>
 </body>
 </html>
